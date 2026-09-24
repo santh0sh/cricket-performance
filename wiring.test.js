@@ -91,7 +91,7 @@ function ok(cond, name, extra) { if (cond) passed++; else { failed++; console.er
   doc.getElementById('inf').dispatchEvent(new window.Event('submit', { cancelable: true }));
   await wait(300);
   ok([...doc.querySelectorAll('#my-inns .inn .fig')].some(f => f.textContent.includes('2/24')), 'bowling innings added');
-  const stored = JSON.parse(window.localStorage.getItem('cric-demo-v1'));
+  const stored = JSON.parse(window.localStorage.getItem('cric-demo-v2'));
   const last = stored.innings[stored.innings.length - 1];
   ok(last.legal_balls === 23, 'overs 3.5 stored as 23 legal balls', last.legal_balls);
 
