@@ -75,11 +75,31 @@
       },
       searchProfiles: function (q) {
         var safe = String(q).replace(/[%_(),"'.\\]/g, ' ').trim();
-        if (safe.length < 2) return Promise.resolve([]);
-        return sb.from('profiles').select('username,display_name,role,batting_style')
+        if (safe.length < 1) return Promise.resolve([]);
+        return sb.from('profiles').select('username,display_name,role,batting_style,avatar_url')
           .or('username.ilike.%' + safe + '%,display_name.ilike.%' + safe + '%')
           .limit(10)
           .then(function (r) { if (r.error) throw r.error; return r.data; });
+      },
+      uploadAvatar: function (userId, blob) {
+        var path = userId + '/avatar-' + Date.now() + '.jpg';
+        return sb.storage.from('avatars').upload(path, blob, { contentType: 'image/jpeg', upsert: true, cacheControl: '3600' })
+          .then(function (r) { if (r.error) throw r.error; return sb.storage.from('avatars').getPublicUrl(path).data.publicUrl; });
+      },
+      listProfiles: function () {
+        return sb.from('profiles').select('id,username,display_name,role,batting_style,bowling_style,avatar_url').order('display_name')
+          .then(function (r) { if (r.error) throw r.error; return r.data; });
+      },
+      teamTotals: function () {
+        var all = [];
+        function page(from) {
+          return sb.from('innings').select('user_id,kind,runs,wickets').order('id').range(from, from + 999).then(function (r) {
+            if (r.error) throw r.error;
+            all = all.concat(r.data);
+            return r.data.length === 1000 ? page(from + 1000) : all;
+          });
+        }
+        return page(0);
       },
       getMyProfile: function (userId) {
         return sb.from('profiles').select('*').eq('id', userId).maybeSingle()
@@ -155,11 +175,18 @@
       },
       searchProfiles: function (q) {
         var n = String(q).trim().toLowerCase();
-        if (n.length < 2) return Promise.resolve([]);
+        if (n.length < 1) return Promise.resolve([]);
         return Promise.resolve(load().profiles.filter(function (p) {
           return p.username.toLowerCase().indexOf(n) >= 0 || p.display_name.toLowerCase().indexOf(n) >= 0;
         }).slice(0, 10));
       },
+      uploadAvatar: function (userId, blob) {
+        return new Promise(function (res, rej) { var fr = new FileReader(); fr.onload = function () { res(fr.result); }; fr.onerror = rej; fr.readAsDataURL(blob); });
+      },
+      listProfiles: function () {
+        return Promise.resolve(load().profiles.slice().sort(function (a, b) { return a.display_name.localeCompare(b.display_name); }));
+      },
+      teamTotals: function () { return Promise.resolve(load().innings.slice()); },
       getMyProfile: function (userId) {
         var p = load().profiles.filter(function (p) { return p.id === userId; })[0];
         return Promise.resolve(p || null);
@@ -198,4 +225,5 @@
 
   window.CricDB = LIVE ? Promise.resolve(supaBackend()) : mockBackend();
 })();
+
 
