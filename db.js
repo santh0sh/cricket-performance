@@ -70,7 +70,7 @@
 
   /* ---------- Offline demo backend (localStorage) ---------- */
   function mockBackend() {
-    var KEY = 'cric-demo-v1', SES = 'cric-demo-session';
+    var KEY = 'cric-demo-v2', SES = 'cric-demo-session';
     // localStorage can be blocked (opaque origins, strict private modes) - fall back to memory
     var mem = {};
     var store = {
