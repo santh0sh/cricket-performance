@@ -111,7 +111,7 @@
   }
 
   function renderNav() {
-    var h = '<a href="#/">Home</a>';
+    var h = '<a href="#/">Home</a><a href="#/players">Players</a>';
     if (session) h += '<a href="#/edit">My profile</a><button class="cta" id="nav-out">Sign out</button>';
     else h += '<a class="cta" href="#/">Sign in</a>';
     nav.innerHTML = h;
@@ -142,7 +142,7 @@
       '<div class="card reveal d3"><h2>Find a player</h2>' +
       '<form id="lookup"><div class="frow one"><div><label class="fl">Name or username</label>' +
       '<input class="fi" id="lk-name" required minlength="2" placeholder="sandy"></div></div>' +
-      '<button class="btn ghost" type="submit">Search</button><div id="lk-msg"></div></form></div></div>'
+      '<button class="btn ghost" type="submit">Search</button> <a class="btn ghost" href="#/players">All players</a><div id="lk-msg"></div></form></div></div>'
     );
     var sf = document.getElementById('signin');
     function pinAuth(isNew) {
@@ -165,6 +165,7 @@
       };
     }
     var lk = document.getElementById('lookup');
+    attachSuggest(document.getElementById('lk-name'), function (p) { go('#/u/' + p.username); });
     if (lk) lk.onsubmit = function (e) {
       e.preventDefault();
       var u = document.getElementById('lk-name').value.trim().toLowerCase();
@@ -179,6 +180,103 @@
         }).join('') + '</div>';
       }).catch(function (e2) { msg.innerHTML = fail(e2); });
     };
+  }
+
+  /* ---------------- search suggestions ---------------- */
+  (function () {
+    var css = '.sug{position:absolute;left:0;right:0;top:100%;margin-top:4px;z-index:50;background:#0f1729;border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.45)}' +
+      '.sug a{display:flex;align-items:center;gap:10px;padding:10px 12px;color:inherit;text-decoration:none;cursor:pointer}' +
+      '.sug a.on,.sug a:hover{background:rgba(34,211,153,.12)}' +
+      '.sug .sa{width:30px;height:30px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;background:linear-gradient(135deg,#22d399,#3b82f6);color:#06101f;overflow:hidden}' +
+      '.sug .sa img{width:100%;height:100%;object-fit:cover}.sug small{display:block;opacity:.6;font-size:12px}' +
+      '.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}' +
+      '.pcard{display:flex;gap:12px;align-items:center;padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:inherit;text-decoration:none;transition:transform .15s,border-color .15s}' +
+      '.pcard:hover{transform:translateY(-2px);border-color:rgba(34,211,153,.5)}' +
+      '.pcard .sa{width:52px;height:52px;border-radius:12px;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;background:linear-gradient(135deg,#22d399,#3b82f6);color:#06101f;overflow:hidden}' +
+      '.pcard .sa img{width:100%;height:100%;object-fit:cover}.pcard b{display:block;font-size:16px}.pcard small{display:block;opacity:.6;font-size:12px}' +
+      '.pcard .pst{margin-top:4px;font-size:13px;opacity:.85}.pcard .pst span{margin-right:10px}';
+    var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+  })();
+  function miniAvatar(p) {
+    return '<div class="sa">' + (p.avatar_url ? '<img src="' + esc(p.avatar_url) + '" alt="" onerror="this.parentNode.textContent=\'' + esc(initials(p.display_name)) + '\'">' : esc(initials(p.display_name))) + '</div>';
+  }
+  function attachSuggest(input, onPick) {
+    if (!input) return;
+    var wrap = input.parentNode; wrap.style.position = 'relative';
+    input.setAttribute('autocomplete', 'off');
+    var box = document.createElement('div'); box.className = 'sug'; box.style.display = 'none'; wrap.appendChild(box);
+    var hits = [], sel = -1, timer = null, seq = 0;
+    function close() { box.style.display = 'none'; sel = -1; }
+    function paint() {
+      if (!hits.length) { close(); return; }
+      box.innerHTML = hits.map(function (p, i) {
+        return '<a data-i="' + i + '"' + (i === sel ? ' class="on"' : '') + '>' + miniAvatar(p) +
+          '<div>' + esc(p.display_name) + '<small>@' + esc(p.username) + ' · ' + esc(p.role) + '</small></div></a>';
+      }).join('');
+      box.style.display = 'block';
+    }
+    box.addEventListener('mousedown', function (e) {
+      var a = e.target.closest('a[data-i]'); if (!a) return;
+      e.preventDefault(); var p = hits[+a.getAttribute('data-i')]; close(); onPick(p, input);
+    });
+    input.addEventListener('input', function () {
+      var q = input.value.trim(); clearTimeout(timer);
+      if (!q) { hits = []; close(); return; }
+      timer = setTimeout(function () {
+        var my = ++seq;
+        db.searchProfiles(q).then(function (r) { if (my !== seq) return; hits = r || []; sel = -1; paint(); }).catch(function () {});
+      }, 180);
+    });
+    input.addEventListener('keydown', function (e) {
+      if (box.style.display === 'none') return;
+      if (e.key === 'ArrowDown') { sel = Math.min(sel + 1, hits.length - 1); paint(); e.preventDefault(); }
+      else if (e.key === 'ArrowUp') { sel = Math.max(sel - 1, 0); paint(); e.preventDefault(); }
+      else if (e.key === 'Enter' && sel >= 0) { e.preventDefault(); var p = hits[sel]; close(); onPick(p, input); }
+      else if (e.key === 'Escape') close();
+    });
+    input.addEventListener('blur', function () { setTimeout(close, 150); });
+  }
+
+  function shrinkImage(file, max) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        var s = Math.min(1, max / Math.max(img.width, img.height));
+        var c = document.createElement('canvas'); c.width = Math.round(img.width * s); c.height = Math.round(img.height * s);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+        c.toBlob(function (b) { b ? resolve(b) : reject(new Error('Could not read that image.')); }, 'image/jpeg', 0.85);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Could not read that image. Try a JPG or PNG.')); };
+      img.src = url;
+    });
+  }
+
+  /* ---------------- all players ---------------- */
+  function viewPlayers() {
+    show('<div class="loading"><div class="spinner"></div></div>');
+    Promise.all([db.listProfiles(), db.teamTotals().catch(function () { return []; })]).then(function (res) {
+      var ps = res[0], tot = {};
+      res[1].forEach(function (r) {
+        var t = tot[r.user_id] || (tot[r.user_id] = { m: 0, runs: 0, wk: 0 });
+        if (r.kind === 'batting') t.runs += r.runs || 0; else t.wk += r.wickets || 0;
+      });
+      var cards = ps.map(function (p) {
+        var t = tot[p.id] || { runs: 0, wk: 0 };
+        return '<a class="pcard" href="#/u/' + esc(p.username) + '">' + miniAvatar(p) +
+          '<div><b>' + esc(p.display_name) + '</b><small>@' + esc(p.username) + ' · ' + esc(p.role) + '</small>' +
+          '<div class="pst"><span>' + t.runs + ' runs</span><span>' + t.wk + ' wkts</span></div></div></a>';
+      }).join('');
+      show('<div class="card reveal"><h2>All <em>players</em> <small style="opacity:.6;font-size:14px">(' + ps.length + ')</small></h2>' +
+        '<div class="frow one" style="margin-bottom:14px"><div><input class="fi" id="pl-filter" placeholder="Filter by name" autocomplete="off"></div></div>' +
+        (ps.length ? '<div class="pgrid" id="pl-grid">' + cards + '</div>' : '<div class="empty">No players yet.</div>') + '</div>');
+      var f = document.getElementById('pl-filter');
+      if (f) f.oninput = function () {
+        var q = f.value.trim().toLowerCase();
+        [].forEach.call(document.querySelectorAll('#pl-grid .pcard'), function (c) {
+          c.style.display = !q || c.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
+        });
+      };
+    }).catch(function (e) { show('<div class="card">' + fail(e) + '</div>'); });
   }
 
   /* ---------------- public profile ---------------- */
@@ -348,8 +446,14 @@
       '<div class="frow one"><div><label class="fl">Bowling style</label>' + sel('pf-bowl', BOWL_STYLES, p ? p.bowling_style : BOWL_STYLES[2]) + '</div></div>' +
       '<div class="frow one"><div><label class="fl">External profile link (optional - e.g. CricHeroes)</label>' +
       '<input class="fi" id="pf-ext" type="url" placeholder="https://..." value="' + esc(p && p.external_url || '') + '"></div></div>' +
-      '<div class="frow one"><div><label class="fl">Profile photo URL (optional)</label>' +
-      '<input class="fi" id="pf-avatar" type="text" placeholder="./sandy.jpg or https://..." value="' + esc(p && p.avatar_url || '') + '"></div></div>' +
+      (p ? '<div class="frow one"><div><label class="fl">Profile photo</label>' +
+        '<div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">' +
+        '<div id="ph-prev" style="width:72px;height:72px;border-radius:16px;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:22px;background:linear-gradient(135deg,#22d399,#3b82f6);color:#06101f">' +
+        (p.avatar_url ? '<img src="' + esc(p.avatar_url) + '" alt="" style="width:100%;height:100%;object-fit:cover">' : esc(initials(p.display_name))) + '</div>' +
+        '<label class="btn ghost" style="cursor:pointer;margin:0">Upload photo<input type="file" id="ph-file" accept="image/*" style="display:none"></label>' +
+        '<div id="ph-msg" style="flex-basis:100%"></div></div></div></div>' : '') +
+      '<div class="frow one"><div><label class="fl">Profile photo URL (optional - or use Upload photo)</label>' +
+      '<input class="fi" id="pf-avatar" type="text" placeholder="https://..." value="' + esc(p && p.avatar_url || '') + '"></div></div>' +
       '<button class="btn" type="submit">' + (p ? 'Save profile' : 'Create profile') + '</button> ' +
       (p ? '<a class="btn ghost" href="#/u/' + esc(p.username) + '">View public page</a>' : '') +
       '<div id="pf-msg"></div></form></div>' +
@@ -366,6 +470,21 @@
       if (!/^[0-9]{4,6}$/.test(np)) { cm.innerHTML = '<div class="err">PIN must be 4-6 digits.</div>'; return; }
       db.changePin(np).then(function () { document.getElementById('cp-pin').value = ''; cm.innerHTML = '<div class="notice green" style="margin-top:12px">PIN updated.</div>'; })
         .catch(function (e2) { cm.innerHTML = fail(e2); });
+    };
+    var phf = document.getElementById('ph-file');
+    if (phf) phf.onchange = function () {
+      var file = phf.files && phf.files[0], pm = document.getElementById('ph-msg');
+      if (!file) return;
+      if (!/^image\//.test(file.type)) { pm.innerHTML = '<div class="err">Please pick an image.</div>'; return; }
+      pm.innerHTML = '<div class="notice" style="margin-top:8px">Uploading...</div>';
+      shrinkImage(file, 512).then(function (blob) { return db.uploadAvatar(session.id, blob); })
+        .then(function (url) { return db.updateProfile(p.id, { avatar_url: url }).then(function () { return url; }); })
+        .then(function (url) {
+          p.avatar_url = url; document.getElementById('pf-avatar').value = url;
+          document.getElementById('ph-prev').innerHTML = '<img src="' + esc(url) + '" alt="" style="width:100%;height:100%;object-fit:cover">';
+          pm.innerHTML = '<div class="notice green" style="margin-top:8px">Photo updated. <a href="#/u/' + esc(p.username) + '">See it on your page</a></div>';
+          phf.value = '';
+        }).catch(function (e2) { pm.innerHTML = fail(e2); });
     };
     document.getElementById('pf').onsubmit = function (e) {
       e.preventDefault();
@@ -646,6 +765,7 @@
     });
     function wireCompareForm() {
       var f = document.getElementById('cmp');
+      ['cmp-a', 'cmp-b'].forEach(function (id) { attachSuggest(document.getElementById(id), function (p, inp) { inp.value = p.username; }); });
       if (f) f.onsubmit = function (e) {
         e.preventDefault();
         var a2 = document.getElementById('cmp-a').value.trim().toLowerCase(), b2 = document.getElementById('cmp-b').value.trim().toLowerCase();
@@ -661,6 +781,7 @@
       var parts = h.slice(9).split('/').filter(Boolean).map(decodeURIComponent);
       viewCompare(parts[0], parts[1]);
     }
+    else if (h === '#/players') viewPlayers();
     else if (h === '#/edit') viewEdit();
     else viewHome();
   }
