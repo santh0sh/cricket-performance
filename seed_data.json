@@ -9,7 +9,8 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Stumped",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 2,
@@ -20,7 +21,8 @@
    "sixes": 0,
    "dots": 22,
    "dismissal": "Caught",
-   "opponent": "GODS"
+   "opponent": "GODS",
+   "source": "pdf"
   },
   {
    "no": 3,
@@ -31,7 +33,8 @@
    "sixes": 0,
    "dots": 9,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 4,
@@ -42,7 +45,8 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 5,
@@ -53,7 +57,8 @@
    "sixes": 1,
    "dots": 5,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 6,
@@ -64,7 +69,8 @@
    "sixes": 0,
    "dots": 15,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 7,
@@ -75,7 +81,8 @@
    "sixes": 1,
    "dots": 7,
    "dismissal": "Caught",
-   "opponent": "Navy Team"
+   "opponent": "Navy Team",
+   "source": "pdf"
   },
   {
    "no": 8,
@@ -86,7 +93,8 @@
    "sixes": 1,
    "dots": 11,
    "dismissal": "",
-   "opponent": "Dugout"
+   "opponent": "Dugout",
+   "source": "pdf"
   },
   {
    "no": 9,
@@ -97,7 +105,8 @@
    "sixes": 2,
    "dots": 13,
    "dismissal": "Caught",
-   "opponent": "Srikals XI"
+   "opponent": "Srikals XI",
+   "source": "pdf"
   },
   {
    "no": 10,
@@ -108,7 +117,8 @@
    "sixes": 2,
    "dots": 12,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 11,
@@ -119,18 +129,20 @@
    "sixes": 4,
    "dots": 12,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 12,
    "date": "2019-07-21",
-   "runs": 17,
-   "balls": 10,
-   "fours": 2,
-   "sixes": 1,
+   "runs": 98,
+   "balls": 67,
+   "fours": 7,
+   "sixes": 6,
    "dots": 4,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 13,
@@ -141,7 +153,8 @@
    "sixes": 0,
    "dots": 8,
    "dismissal": "Runout",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 14,
@@ -152,7 +165,8 @@
    "sixes": 4,
    "dots": 12,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 15,
@@ -163,7 +177,8 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "LBW",
-   "opponent": "GODS"
+   "opponent": "GODS",
+   "source": "pdf"
   },
   {
    "no": 16,
@@ -174,7 +189,8 @@
    "sixes": 0,
    "dots": 7,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 17,
@@ -185,7 +201,8 @@
    "sixes": 0,
    "dots": 7,
    "dismissal": "",
-   "opponent": "Capital Honda"
+   "opponent": "Capital Honda",
+   "source": "pdf"
   },
   {
    "no": 18,
@@ -196,7 +213,8 @@
    "sixes": 0,
    "dots": 11,
    "dismissal": "LBW",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 19,
@@ -207,7 +225,8 @@
    "sixes": 0,
    "dots": 0,
    "dismissal": "Caught",
-   "opponent": "GMCC"
+   "opponent": "GMCC",
+   "source": "pdf"
   },
   {
    "no": 20,
@@ -218,7 +237,8 @@
    "sixes": 2,
    "dots": 3,
    "dismissal": "Bowled",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 21,
@@ -229,7 +249,8 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Run Out",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 22,
@@ -240,7 +261,8 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 23,
@@ -251,7 +273,8 @@
    "sixes": 0,
    "dots": 1,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 24,
@@ -262,7 +285,8 @@
    "sixes": 0,
    "dots": 6,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 25,
@@ -273,7 +297,8 @@
    "sixes": 0,
    "dots": 5,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 26,
@@ -284,7 +309,8 @@
    "sixes": 0,
    "dots": 13,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 27,
@@ -295,7 +321,8 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Bowled",
-   "opponent": "Titans"
+   "opponent": "Titans",
+   "source": "pdf"
   },
   {
    "no": 28,
@@ -306,10 +333,23 @@
    "sixes": 0,
    "dots": 13,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 29,
+   "date": "2020-02-22",
+   "runs": 4,
+   "balls": 3,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Wolverines CC",
+   "source": "cricheroes"
+  },
+  {
+   "no": 30,
    "date": "2020-02-24",
    "runs": 4,
    "balls": 3,
@@ -317,10 +357,11 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "Caught",
-   "opponent": "Wolverians"
+   "opponent": "Wolverians",
+   "source": "pdf"
   },
   {
-   "no": 30,
+   "no": 31,
    "date": "2020-03-01",
    "runs": 3,
    "balls": 3,
@@ -328,10 +369,11 @@
    "sixes": 0,
    "dots": 0,
    "dismissal": "Run Out",
-   "opponent": "Black Eagles"
+   "opponent": "Black Eagles",
+   "source": "pdf"
   },
   {
-   "no": 31,
+   "no": 32,
    "date": "2020-03-07",
    "runs": 19,
    "balls": 16,
@@ -339,10 +381,11 @@
    "sixes": 1,
    "dots": 8,
    "dismissal": "Bowled",
-   "opponent": "Silent Assasians"
+   "opponent": "Silent Assasians",
+   "source": "pdf"
   },
   {
-   "no": 32,
+   "no": 33,
    "date": "2020-03-08",
    "runs": 16,
    "balls": 14,
@@ -350,10 +393,11 @@
    "sixes": 0,
    "dots": 4,
    "dismissal": "LBW",
-   "opponent": "Chennai 11s"
+   "opponent": "Chennai 11s",
+   "source": "pdf"
   },
   {
-   "no": 33,
+   "no": 34,
    "date": "2020-03-08",
    "runs": 4,
    "balls": 4,
@@ -361,10 +405,11 @@
    "sixes": 1,
    "dots": 3,
    "dismissal": "Caught",
-   "opponent": "Tamil Kings"
+   "opponent": "Tamil Kings",
+   "source": "pdf"
   },
   {
-   "no": 34,
+   "no": 35,
    "date": "2020-03-15",
    "runs": 30,
    "balls": 15,
@@ -372,10 +417,11 @@
    "sixes": 6,
    "dots": 4,
    "dismissal": "",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 35,
+   "no": 36,
    "date": "2020-10-11",
    "runs": 10,
    "balls": 17,
@@ -383,10 +429,11 @@
    "sixes": 0,
    "dots": 5,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 36,
+   "no": 37,
    "date": "2020-10-22",
    "runs": 1,
    "balls": 5,
@@ -394,10 +441,11 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 37,
+   "no": 38,
    "date": "2020-12-13",
    "runs": 3,
    "balls": 5,
@@ -405,10 +453,11 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 38,
+   "no": 39,
    "date": "2020-12-20",
    "runs": 58,
    "balls": 37,
@@ -416,10 +465,11 @@
    "sixes": 4,
    "dots": 9,
    "dismissal": "Bowled",
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
-   "no": 39,
+   "no": 40,
    "date": "2020-12-26",
    "runs": 19,
    "balls": 23,
@@ -427,10 +477,11 @@
    "sixes": 0,
    "dots": 4,
    "dismissal": "Run Out",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 40,
+   "no": 41,
    "date": "2020-12-27",
    "runs": 6,
    "balls": 5,
@@ -438,10 +489,11 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 41,
+   "no": 42,
    "date": "2021-01-03",
    "runs": 5,
    "balls": 6,
@@ -449,10 +501,11 @@
    "sixes": 0,
    "dots": 0,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 42,
+   "no": 43,
    "date": "2021-01-10",
    "runs": 2,
    "balls": 5,
@@ -460,10 +513,11 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 43,
+   "no": 44,
    "date": "2021-01-24",
    "runs": 12,
    "balls": 13,
@@ -471,10 +525,11 @@
    "sixes": 0,
    "dots": 4,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 44,
+   "no": 45,
    "date": "2021-01-26",
    "runs": 2,
    "balls": 7,
@@ -482,10 +537,11 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 45,
+   "no": 46,
    "date": "2021-01-31",
    "runs": 7,
    "balls": 5,
@@ -493,10 +549,11 @@
    "sixes": 0,
    "dots": 1,
    "dismissal": "Stumped",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 46,
+   "no": 47,
    "date": "2021-02-14",
    "runs": 13,
    "balls": 8,
@@ -504,10 +561,11 @@
    "sixes": 0,
    "dots": 0,
    "dismissal": "Run Out",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 47,
+   "no": 48,
    "date": "2021-02-28",
    "runs": 7,
    "balls": 19,
@@ -515,10 +573,11 @@
    "sixes": 0,
    "dots": 12,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 48,
+   "no": 49,
    "date": "2021-03-06",
    "runs": 34,
    "balls": 20,
@@ -526,10 +585,11 @@
    "sixes": 0,
    "dots": 7,
    "dismissal": "Stumped",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 49,
+   "no": 50,
    "date": "2021-03-21",
    "runs": 6,
    "balls": 10,
@@ -537,10 +597,11 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 50,
+   "no": 51,
    "date": "2021-03-28",
    "runs": 68,
    "balls": 38,
@@ -548,10 +609,11 @@
    "sixes": 3,
    "dots": 5,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 51,
+   "no": 52,
    "date": "2021-08-01",
    "runs": 25,
    "balls": 15,
@@ -559,10 +621,11 @@
    "sixes": 1,
    "dots": 4,
    "dismissal": "Stumped",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 52,
+   "no": 53,
    "date": "2021-08-08",
    "runs": 29,
    "balls": 29,
@@ -570,10 +633,11 @@
    "sixes": 1,
    "dots": 9,
    "dismissal": "",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 53,
+   "no": 54,
    "date": "2022-01-02",
    "runs": 27,
    "balls": 12,
@@ -581,10 +645,11 @@
    "sixes": 3,
    "dots": 2,
    "dismissal": "Stumped",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 54,
+   "no": 55,
    "date": "2022-02-06",
    "runs": 0,
    "balls": 1,
@@ -592,10 +657,11 @@
    "sixes": 0,
    "dots": 0,
    "dismissal": "Bowled",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 55,
+   "no": 56,
    "date": "2022-11-27",
    "runs": 1,
    "balls": 4,
@@ -603,10 +669,11 @@
    "sixes": 0,
    "dots": 2,
    "dismissal": "Caught",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 56,
+   "no": 57,
    "date": "2023-02-19",
    "runs": 2,
    "balls": 6,
@@ -614,10 +681,11 @@
    "sixes": 0,
    "dots": 3,
    "dismissal": "Bowled",
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 57,
+   "no": 58,
    "date": "2023-02-26",
    "runs": 9,
    "balls": 7,
@@ -625,10 +693,11 @@
    "sixes": 0,
    "dots": 1,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 58,
+   "no": 59,
    "date": "2023-03-05",
    "runs": 61,
    "balls": 42,
@@ -636,10 +705,11 @@
    "sixes": 1,
    "dots": 15,
    "dismissal": "",
-   "opponent": "Tank Kings"
+   "opponent": "Tank Kings",
+   "source": "pdf"
   },
   {
-   "no": 59,
+   "no": 60,
    "date": "2023-03-12",
    "runs": 3,
    "balls": 6,
@@ -647,741 +717,1603 @@
    "sixes": 0,
    "dots": 1,
    "dismissal": "Caught",
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
+  },
+  {
+   "no": 61,
+   "date": "2023-08-12",
+   "runs": 20,
+   "balls": 19,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Asmara C C",
+   "source": "cricheroes"
+  },
+  {
+   "no": 62,
+   "date": "2023-09-09",
+   "runs": 7,
+   "balls": 4,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Elegant XI",
+   "source": "cricheroes"
+  },
+  {
+   "no": 63,
+   "date": "2023-09-23",
+   "runs": 1,
+   "balls": 2,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Masters Blasters",
+   "source": "cricheroes"
+  },
+  {
+   "no": 64,
+   "date": "2023-12-30",
+   "runs": 1,
+   "balls": 4,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Run Out",
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 65,
+   "date": "2024-01-13",
+   "runs": 11,
+   "balls": 6,
+   "fours": 0,
+   "sixes": 1,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Wild Hogs A Team vs Wildhogs 11",
+   "source": "cricheroes"
+  },
+  {
+   "no": 66,
+   "date": "2024-01-20",
+   "runs": 11,
+   "balls": 10,
+   "fours": 2,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Cricket Clan",
+   "source": "cricheroes"
+  },
+  {
+   "no": 67,
+   "date": "2024-01-27",
+   "runs": 2,
+   "balls": 6,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Shree Consultants",
+   "source": "cricheroes"
+  },
+  {
+   "no": 68,
+   "date": "2024-02-03",
+   "runs": 21,
+   "balls": 22,
+   "fours": 3,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Beach Boys Cricket Club",
+   "source": "cricheroes"
+  },
+  {
+   "no": 69,
+   "date": "2024-03-02",
+   "runs": 1,
+   "balls": 3,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Asmara C C",
+   "source": "cricheroes"
+  },
+  {
+   "no": 70,
+   "date": "2024-03-16",
+   "runs": 5,
+   "balls": 8,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "LBW",
+   "opponent": "Intellect Design",
+   "source": "cricheroes"
+  },
+  {
+   "no": 71,
+   "date": "2024-03-24",
+   "runs": 28,
+   "balls": 22,
+   "fours": 2,
+   "sixes": 1,
+   "dots": null,
+   "dismissal": "Run Out",
+   "opponent": "Corporate Panthers",
+   "source": "cricheroes"
+  },
+  {
+   "no": 72,
+   "date": "2024-03-31",
+   "runs": 0,
+   "balls": 1,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Shree Consultants",
+   "source": "cricheroes"
+  },
+  {
+   "no": 73,
+   "date": "2024-04-06",
+   "runs": 0,
+   "balls": 1,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Wild Hogs A Team vs Wildhogs 11",
+   "source": "cricheroes"
+  },
+  {
+   "no": 74,
+   "date": "2024-05-04",
+   "runs": 3,
+   "balls": 5,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Shree Consultants",
+   "source": "cricheroes"
+  },
+  {
+   "no": 75,
+   "date": "2024-05-11",
+   "runs": 26,
+   "balls": 32,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Stumped",
+   "opponent": "Stalwarts XI",
+   "source": "cricheroes"
+  },
+  {
+   "no": 76,
+   "date": "2024-07-06",
+   "runs": 2,
+   "balls": 5,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 77,
+   "date": "2024-07-13",
+   "runs": 4,
+   "balls": 11,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Cassia Kings",
+   "source": "cricheroes"
+  },
+  {
+   "no": 78,
+   "date": "2024-08-10",
+   "runs": 2,
+   "balls": 5,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Invincible Invaders",
+   "source": "cricheroes"
+  },
+  {
+   "no": 79,
+   "date": "2024-08-24",
+   "runs": 25,
+   "balls": 15,
+   "fours": 2,
+   "sixes": 1,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Kk11S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 80,
+   "date": "2024-11-02",
+   "runs": 7,
+   "balls": 10,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "The Madras Cricket Regiment Ca",
+   "source": "cricheroes"
+  },
+  {
+   "no": 81,
+   "date": "2024-11-09",
+   "runs": 7,
+   "balls": 5,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Untitled_Xi",
+   "source": "cricheroes"
+  },
+  {
+   "no": 82,
+   "date": "2024-12-07",
+   "runs": 4,
+   "balls": 8,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Marina Eleven",
+   "source": "cricheroes"
+  },
+  {
+   "no": 83,
+   "date": "2024-12-21",
+   "runs": 0,
+   "balls": 2,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Chennai Xl S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 84,
+   "date": "2025-01-11",
+   "runs": 30,
+   "balls": 23,
+   "fours": 6,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Wild Hogs 2 vs Wild Hogs 1",
+   "source": "cricheroes"
+  },
+  {
+   "no": 85,
+   "date": "2025-02-08",
+   "runs": 3,
+   "balls": 6,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "Chennai Xl S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 86,
+   "date": "2025-03-01",
+   "runs": 27,
+   "balls": 19,
+   "fours": 4,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 87,
+   "date": "2025-03-08",
+   "runs": 6,
+   "balls": 7,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "!Bca!",
+   "source": "cricheroes"
+  },
+  {
+   "no": 88,
+   "date": "2025-11-15",
+   "runs": 0,
+   "balls": 1,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "The Hurricanes",
+   "source": "cricheroes"
+  },
+  {
+   "no": 89,
+   "date": "2025-11-22",
+   "runs": 0,
+   "balls": 3,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Caught",
+   "opponent": "STARMAVERICKS",
+   "source": "cricheroes"
+  },
+  {
+   "no": 90,
+   "date": "2026-01-31",
+   "runs": 0,
+   "balls": 3,
+   "fours": 0,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "Bowled",
+   "opponent": "Opaline CC",
+   "source": "cricheroes"
+  },
+  {
+   "no": 91,
+   "date": "2026-07-18",
+   "runs": 6,
+   "balls": 6,
+   "fours": 1,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "Smoking Aces Chennai",
+   "source": "cricheroes"
+  },
+  {
+   "no": 92,
+   "date": "2026-08-01",
+   "runs": 14,
+   "balls": 14,
+   "fours": 2,
+   "sixes": 0,
+   "dots": null,
+   "dismissal": "",
+   "opponent": "The Vintage Titans",
+   "source": "cricheroes"
   }
  ],
  "bowling": [
   {
    "no": 1,
    "date": "2019-01-06",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 25,
    "wickets": 1,
    "wides": 1,
    "no_balls": 1,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 2,
    "date": "2019-01-27",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 16,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "GODS"
+   "opponent": "GODS",
+   "source": "pdf"
   },
   {
    "no": 3,
    "date": "2019-02-17",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 16,
    "wickets": 1,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 1,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 4,
    "date": "2019-03-03",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 12,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 5,
    "date": "2019-03-31",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 17,
    "wickets": 2,
    "wides": 3,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
    "no": 6,
    "date": "2019-04-07",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 14,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 7,
    "date": "2019-04-19",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 18,
    "wickets": 0,
    "wides": 4,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Navy Team"
+   "opponent": "Navy Team",
+   "source": "pdf"
   },
   {
    "no": 8,
    "date": "2019-05-11",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 17,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Dug out"
+   "opponent": "Dug out",
+   "source": "pdf"
   },
   {
    "no": 9,
    "date": "2019-05-18",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 11,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Srikals XI"
+   "opponent": "Srikals XI",
+   "source": "pdf"
   },
   {
    "no": 10,
    "date": "2019-07-07",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 23,
    "wickets": 2,
    "wides": 2,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 11,
    "date": "2019-07-14",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 11,
    "wickets": 3,
    "wides": 0,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 12,
    "date": "2019-07-21",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 20,
    "wickets": 0,
    "wides": 2,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 13,
    "date": "2019-09-01",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 17,
    "wickets": 0,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 14,
    "date": "2019-09-08",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 10,
    "wickets": 1,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 15,
    "date": "2019-09-15",
-   "overs": "1",
+   "overs": "1.0",
    "runs_given": 8,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "GODS"
+   "opponent": "GODS",
+   "source": "pdf"
   },
   {
    "no": 16,
    "date": "2019-09-21",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 24,
    "wickets": 1,
    "wides": 0,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 17,
    "date": "2019-09-29",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 25,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 2,
    "run_outs": 0,
-   "opponent": "Capital Honda"
+   "opponent": "Capital Honda",
+   "source": "pdf"
   },
   {
    "no": 18,
    "date": "2019-10-06",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 26,
    "wickets": 1,
    "wides": 2,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 19,
    "date": "2019-10-12",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 15,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "GMCC"
+   "opponent": "GMCC",
+   "source": "pdf"
   },
   {
    "no": 20,
    "date": "2019-11-17",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 36,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 21,
    "date": "2019-11-24",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 10,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 22,
    "date": "2019-12-22",
-   "overs": "1",
+   "overs": "1.0",
    "runs_given": 15,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 23,
    "date": "2019-12-29",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 13,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 24,
    "date": "2020-01-05",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 28,
    "wickets": 1,
    "wides": 3,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 25,
    "date": "2020-02-02",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 21,
    "wickets": 1,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
    "no": 26,
    "date": "2020-02-09",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 17,
    "wickets": 0,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Titans"
+   "opponent": "Titans",
+   "source": "pdf"
   },
   {
    "no": 27,
    "date": "2020-02-17",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 40,
    "wickets": 2,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 1,
-   "opponent": "Wild Hogs 2"
+   "opponent": "Wild Hogs 2",
+   "source": "pdf"
   },
   {
    "no": 28,
+   "date": "2020-02-22",
+   "overs": "1.0",
+   "runs_given": 13,
+   "wickets": 0,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Wolverines CC",
+   "source": "cricheroes"
+  },
+  {
+   "no": 29,
    "date": "2020-02-24",
-   "overs": "1",
+   "overs": "1.0",
    "runs_given": 13,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 1,
-   "opponent": "Wolverians"
+   "opponent": "Wolverians",
+   "source": "pdf"
   },
   {
-   "no": 29,
+   "no": 30,
    "date": "2020-03-01",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 22,
    "wickets": 5,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Black Eagles"
+   "opponent": "Black Eagles",
+   "source": "pdf"
   },
   {
-   "no": 30,
+   "no": 31,
    "date": "2020-03-07",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 18,
-   "wickets": 5,
+   "wickets": 6,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Silent Assasians"
+   "opponent": "Silent Assasians",
+   "source": "pdf"
   },
   {
-   "no": 31,
+   "no": 32,
    "date": "2020-03-08",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 23,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 2,
-   "opponent": "Chennai 11s"
+   "opponent": "Chennai 11s",
+   "source": "pdf"
   },
   {
-   "no": 32,
+   "no": 33,
    "date": "2020-03-08",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 26,
    "wickets": 2,
    "wides": 4,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Tamil Kings"
+   "opponent": "Tamil Kings",
+   "source": "pdf"
   },
   {
-   "no": 33,
+   "no": 34,
    "date": "2020-03-15",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 11,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 34,
+   "no": 35,
    "date": "2020-10-11",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 34,
    "wickets": 2,
    "wides": 2,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 35,
+   "no": 36,
    "date": "2020-10-22",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 11,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 36,
+   "no": 37,
    "date": "2020-12-13",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 10,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 37,
+   "no": 38,
    "date": "2020-12-20",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 9,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 38,
+   "no": 39,
    "date": "2020-12-26",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 32,
    "wickets": 1,
    "wides": 4,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 39,
+   "no": 40,
    "date": "2020-12-27",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 31,
    "wickets": 1,
    "wides": 5,
    "no_balls": 0,
    "catches": 2,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 40,
+   "no": 41,
    "date": "2021-01-03",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 15,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 41,
+   "no": 42,
    "date": "2021-01-10",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 17,
    "wickets": 2,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 42,
+   "no": 43,
    "date": "2021-01-24",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 25,
    "wickets": 1,
    "wides": 4,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 43,
+   "no": 44,
    "date": "2021-01-26",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 2,
    "wickets": 3,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 44,
+   "no": 45,
    "date": "2021-01-31",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 19,
    "wickets": 1,
    "wides": 0,
    "no_balls": 1,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 45,
+   "no": 46,
    "date": "2021-02-07",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 33,
    "wickets": 2,
    "wides": 2,
    "no_balls": 1,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 46,
+   "no": 47,
    "date": "2021-02-14",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 25,
    "wickets": 1,
    "wides": 1,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 47,
+   "no": 48,
    "date": "2021-02-28",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 49,
    "wickets": 0,
    "wides": 5,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 48,
+   "no": 49,
    "date": "2021-03-06",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 22,
    "wickets": 0,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 49,
+   "no": 50,
    "date": "2021-03-21",
-   "overs": "1",
+   "overs": "1.0",
    "runs_given": 18,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 50,
+   "no": 51,
    "date": "2021-03-28",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 29,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 51,
+   "no": 52,
    "date": "2021-08-01",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 16,
    "wickets": 0,
    "wides": 1,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 52,
+   "no": 53,
    "date": "2021-08-08",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 19,
    "wickets": 2,
    "wides": 3,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 53,
+   "no": 54,
    "date": "2022-01-02",
-   "overs": "1",
+   "overs": "1.0",
    "runs_given": 14,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 54,
+   "no": 55,
    "date": "2022-02-06",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 14,
    "wickets": 1,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 55,
+   "no": 56,
+   "date": "2022-05-28",
+   "overs": "4.0",
+   "runs_given": 27,
+   "wickets": 2,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "$Idiotz$",
+   "source": "cricheroes"
+  },
+  {
+   "no": 57,
    "date": "2022-05-29",
-   "overs": "4",
+   "overs": "4.0",
    "runs_given": 27,
    "wickets": 2,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 56,
+   "no": 58,
    "date": "2022-11-27",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 22,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 57,
+   "no": 59,
    "date": "2023-01-02",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 5,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 58,
+   "no": 60,
    "date": "2023-02-19",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 21,
    "wickets": 0,
    "wides": 0,
    "no_balls": 0,
    "catches": 1,
    "run_outs": 0,
-   "opponent": "Unregistered Team"
+   "opponent": "Unregistered Team",
+   "source": "pdf"
   },
   {
-   "no": 59,
+   "no": 61,
    "date": "2023-02-26",
-   "overs": "2",
+   "overs": "2.0",
    "runs_given": 14,
    "wickets": 1,
    "wides": 1,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 1,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
   },
   {
-   "no": 60,
+   "no": 62,
    "date": "2023-03-05",
-   "overs": "3",
+   "overs": "3.0",
    "runs_given": 29,
    "wickets": 0,
    "wides": 5,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Tank Kings"
+   "opponent": "Tank Kings",
+   "source": "pdf"
   },
   {
-   "no": 61,
+   "no": 63,
    "date": "2023-03-12",
-   "overs": "5",
+   "overs": "5.0",
    "runs_given": 25,
    "wickets": 1,
    "wides": 2,
    "no_balls": 0,
    "catches": 0,
    "run_outs": 0,
-   "opponent": "Wild Hogs"
+   "opponent": "Wild Hogs",
+   "source": "pdf"
+  },
+  {
+   "no": 64,
+   "date": "2023-09-09",
+   "overs": "4.0",
+   "runs_given": 18,
+   "wickets": 2,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Elegant XI",
+   "source": "cricheroes"
+  },
+  {
+   "no": 65,
+   "date": "2023-09-23",
+   "overs": "4.0",
+   "runs_given": 13,
+   "wickets": 2,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Masters Blasters",
+   "source": "cricheroes"
+  },
+  {
+   "no": 66,
+   "date": "2023-10-21",
+   "overs": "4.0",
+   "runs_given": 13,
+   "wickets": 2,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Big Boys CC",
+   "source": "cricheroes"
+  },
+  {
+   "no": 67,
+   "date": "2023-12-30",
+   "overs": "3.0",
+   "runs_given": 28,
+   "wickets": 0,
+   "wides": 3,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 68,
+   "date": "2024-01-13",
+   "overs": "5.0",
+   "runs_given": 27,
+   "wickets": 1,
+   "wides": 4,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Wild Hogs A Team vs Wildhogs 11",
+   "source": "cricheroes"
+  },
+  {
+   "no": 69,
+   "date": "2024-01-20",
+   "overs": "2.2",
+   "runs_given": 10,
+   "wickets": 0,
+   "wides": 2,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Cricket Clan",
+   "source": "cricheroes"
+  },
+  {
+   "no": 70,
+   "date": "2024-01-27",
+   "overs": "2.0",
+   "runs_given": 14,
+   "wickets": 3,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Shree Consultants",
+   "source": "cricheroes"
+  },
+  {
+   "no": 71,
+   "date": "2024-03-02",
+   "overs": "3.0",
+   "runs_given": 16,
+   "wickets": 0,
+   "wides": 2,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Asmara C C",
+   "source": "cricheroes"
+  },
+  {
+   "no": 72,
+   "date": "2024-03-16",
+   "overs": "1.0",
+   "runs_given": 13,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Intellect Design",
+   "source": "cricheroes"
+  },
+  {
+   "no": 73,
+   "date": "2024-03-24",
+   "overs": "2.0",
+   "runs_given": 28,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Corporate Panthers",
+   "source": "cricheroes"
+  },
+  {
+   "no": 74,
+   "date": "2024-03-31",
+   "overs": "1.0",
+   "runs_given": 8,
+   "wickets": 0,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Shree Consultants",
+   "source": "cricheroes"
+  },
+  {
+   "no": 75,
+   "date": "2024-04-06",
+   "overs": "4.0",
+   "runs_given": 17,
+   "wickets": 1,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Wild Hogs A Team vs Wildhogs 11",
+   "source": "cricheroes"
+  },
+  {
+   "no": 76,
+   "date": "2024-04-06",
+   "overs": "2.2",
+   "runs_given": 7,
+   "wickets": 1,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Wild Hogs A Team vs Wildhogs 11",
+   "source": "cricheroes"
+  },
+  {
+   "no": 77,
+   "date": "2024-05-11",
+   "overs": "3.0",
+   "runs_given": 12,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Stalwarts XI",
+   "source": "cricheroes"
+  },
+  {
+   "no": 78,
+   "date": "2024-07-06",
+   "overs": "10.0",
+   "runs_given": 21,
+   "wickets": 1,
+   "wides": 2,
+   "no_balls": 1,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 79,
+   "date": "2024-08-10",
+   "overs": "3.0",
+   "runs_given": 25,
+   "wickets": 0,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Invincible Invaders",
+   "source": "cricheroes"
+  },
+  {
+   "no": 80,
+   "date": "2024-08-24",
+   "overs": "3.0",
+   "runs_given": 18,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Kk11S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 81,
+   "date": "2024-11-02",
+   "overs": "2.0",
+   "runs_given": 7,
+   "wickets": 2,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "The Madras Cricket Regiment Ca",
+   "source": "cricheroes"
+  },
+  {
+   "no": 82,
+   "date": "2024-11-09",
+   "overs": "4.0",
+   "runs_given": 29,
+   "wickets": 1,
+   "wides": 2,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Untitled_Xi",
+   "source": "cricheroes"
+  },
+  {
+   "no": 83,
+   "date": "2024-12-07",
+   "overs": "10.0",
+   "runs_given": 11,
+   "wickets": 4,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Marina Eleven",
+   "source": "cricheroes"
+  },
+  {
+   "no": 84,
+   "date": "2024-12-21",
+   "overs": "3.0",
+   "runs_given": 22,
+   "wickets": 1,
+   "wides": 3,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Chennai Xl S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 85,
+   "date": "2025-01-11",
+   "overs": "2.0",
+   "runs_given": 10,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Wild Hogs 2 vs Wild Hogs 1",
+   "source": "cricheroes"
+  },
+  {
+   "no": 86,
+   "date": "2025-02-08",
+   "overs": "3.0",
+   "runs_given": 16,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Chennai Xl S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 87,
+   "date": "2025-03-01",
+   "overs": "3.0",
+   "runs_given": 18,
+   "wickets": 0,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "K K 1 1 S",
+   "source": "cricheroes"
+  },
+  {
+   "no": 88,
+   "date": "2025-03-08",
+   "overs": "5.0",
+   "runs_given": 25,
+   "wickets": 1,
+   "wides": 3,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "!Bca!",
+   "source": "cricheroes"
+  },
+  {
+   "no": 89,
+   "date": "2025-11-15",
+   "overs": "3.0",
+   "runs_given": 13,
+   "wickets": 1,
+   "wides": 3,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "The Hurricanes",
+   "source": "cricheroes"
+  },
+  {
+   "no": 90,
+   "date": "2025-11-22",
+   "overs": "3.0",
+   "runs_given": 13,
+   "wickets": 1,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "STARMAVERICKS",
+   "source": "cricheroes"
+  },
+  {
+   "no": 91,
+   "date": "2026-01-31",
+   "overs": "3.0",
+   "runs_given": 18,
+   "wickets": 0,
+   "wides": 1,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Opaline CC",
+   "source": "cricheroes"
+  },
+  {
+   "no": 92,
+   "date": "2026-07-18",
+   "overs": "1.0",
+   "runs_given": 16,
+   "wickets": 0,
+   "wides": 0,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "Smoking Aces Chennai",
+   "source": "cricheroes"
+  },
+  {
+   "no": 93,
+   "date": "2026-08-01",
+   "overs": "4.0",
+   "runs_given": 18,
+   "wickets": 1,
+   "wides": 3,
+   "no_balls": 0,
+   "catches": null,
+   "run_outs": null,
+   "opponent": "The Vintage Titans",
+   "source": "cricheroes"
   }
  ]
 }

@@ -97,10 +97,10 @@ function ok(cond, name, extra) {
   const bowl = await rows(`select * from public.innings where kind='bowling'`);
   const cb = S.careerBatting(bat.map(x => ({ ...x })));
   const kb = S.careerBowling(bowl.map(x => ({ ...x })));
-  ok(bat.length === 59 && bowl.length === 61, 'seed row counts', bat.length + '/' + bowl.length);
-  ok(cb.runs === 1123 && cb.balls === 927 && cb.outs === 49 && cb.sr === 121.14 && cb.avg === 22.92, 'seeded batting career matches PDF summary');
-  ok(kb.runs === 1205 && kb.wickets === 59 && kb.overs === '195.0' && kb.econ === 6.18, 'seeded bowling career matches PDF summary');
-  ok(kb.best.wickets + '/' + kb.best.runs === '5/18', 'seeded best bowling 5/18');
+  ok(bat.length === 92 && bowl.length === 93, 'seed row counts (92 bat + 93 bowl, PDF + CricHeroes)', bat.length + '/' + bowl.length);
+  ok(cb.runs === 1482 && cb.balls === 1275 && cb.outs === 75 && cb.sr === 116.24 && cb.avg === 19.76, 'seeded batting career matches combined PDF(updated)+CricHeroes totals');
+  ok(kb.runs === 1749 && kb.wickets === 87 && kb.overs === '302.4' && kb.econ === 5.78, 'seeded bowling career matches combined PDF(updated)+CricHeroes totals');
+  ok(kb.best.wickets + '/' + kb.best.runs === '6/18', 'seeded best bowling 6/18');
 
   console.log(passed + ' passed, ' + failed + ' failed');
   await c.end(); await pg.stop();

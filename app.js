@@ -40,6 +40,68 @@
     }).join('') + '</div>';
   }
 
+  /* Per-innings trend for the last n innings (date order). Batting: runs bars,
+     not-out star, peak highlight. Bowling: wicket bars + fielding dots where the
+     source recorded catches/run-outs (CricHeroes imports did not - shown as gaps). */
+  function trendChart(rows, kind, n) {
+    var last = rows.slice().sort(function (a, b) { return String(a.played_on) < String(b.played_on) ? -1 : 1; }).slice(-(n || 15));
+    if (!last.length) return '';
+    var key = kind === 'batting' ? 'runs' : 'wickets';
+    var max = Math.max.apply(null, last.map(function (r) { return r[key] || 0; }).concat([1]));
+    var missingFielding = kind === 'bowling' && last.some(function (r) { return r.catches == null && r.run_outs == null; });
+    return '<div class="trend" role="img" aria-label="' + kind + ' form, last ' + last.length + ' innings">' + last.map(function (r, i) {
+      var v = r[key] || 0;
+      var h = Math.max(3, Math.round(v / max * 82));
+      var peak = v > 0 && v === max;
+      var star = kind === 'batting' && !CricStats.isOut(r.dismissal) ? '*' : '';
+      var fdot = '';
+      if (kind === 'bowling' && (r.catches != null || r.run_outs != null)) {
+        var f = (r.catches || 0) + (r.run_outs || 0);
+        if (f > 0) fdot = '<i class="fdot" title="' + (r.catches || 0) + ' catches, ' + (r.run_outs || 0) + ' run outs">' + f + '</i>';
+      }
+      return '<div class="tcol"><b>' + v + star + '</b>' + fdot +
+        '<i class="tbar' + (kind === 'bowling' ? ' bowl' : '') + (peak ? ' peak' : '') + '" style="height:' + h + '%;animation-delay:' + (i * 50) + 'ms"></i>' +
+        '<span>' + esc(String(r.played_on).slice(5).split('-').reverse().join('/')) + '</span></div>';
+    }).join('') + '</div>' +
+    (missingFielding ? '<div class="tnote">No fielding dots on some bars: CricHeroes imports do not record catches/run-outs.</div>' : '');
+  }
+
+  /* Records shelf: one card per fifty (batting) or five-wicket haul (bowling). */
+  function recordsShelf(rows, kind) {
+    var recs = rows.filter(function (r) {
+      return kind === 'batting' ? (r.runs >= 50 && r.runs < 100) || r.runs >= 100 : r.wickets >= 5;
+    }).sort(function (x, y) {
+      return kind === 'batting' ? y.runs - x.runs : (y.wickets - x.wickets) || (x.runs_given - y.runs_given);
+    });
+    if (!recs.length) return '';
+    return '<div class="shelf">' + recs.map(function (r) {
+      var fig = kind === 'batting' ? r.runs + (CricStats.isOut(r.dismissal) ? '' : '*') : r.wickets + '/' + r.runs_given;
+      return '<div class="rec"><b>' + fig + '</b><span>' + esc(r.opponent || 'Friendly') + '</span><small>' + esc(r.played_on) + '</small></div>';
+    }).join('') + '</div>';
+  }
+
+  /* Head-to-head: this player's record against one opponent, from innings already loaded. */
+  function h2hCard(rows, opp) {
+    var vs = rows.filter(function (r) { return (r.opponent || '') === opp; });
+    if (!vs.length) return '';
+    var bat = vs.filter(function (r) { return r.kind === 'batting'; });
+    var bowl = vs.filter(function (r) { return r.kind === 'bowling'; });
+    var cb = CricStats.careerBatting(bat), kb = CricStats.careerBowling(bowl);
+    var dates = vs.map(function (r) { return r.played_on; }).sort();
+    var fieldC = bowl.reduce(function (t, r) { return t + (r.catches || 0); }, 0);
+    var fieldR = bowl.reduce(function (t, r) { return t + (r.run_outs || 0); }, 0);
+    return '<div class="card h2h" id="h2h"><h2>vs <em>' + esc(opp || 'Friendly') + '</em></h2>' +
+      '<div class="h2hgrid">' +
+      '<div><b>' + dates.length + '</b><span>innings</span></div>' +
+      (bat.length ? '<div><b>' + cb.runs + '</b><span>runs (HS ' + cb.hs + ')</span></div>' : '') +
+      (bat.length && cb.avg != null ? '<div><b>' + cb.avg + '</b><span>bat avg</span></div>' : '') +
+      (bowl.length ? '<div><b>' + kb.wickets + '</b><span>wickets</span></div>' : '') +
+      (bowl.length && kb.best ? '<div><b>' + kb.best.wickets + '/' + kb.best.runs + '</b><span>best</span></div>' : '') +
+      (fieldC + fieldR > 0 ? '<div><b>' + fieldC + 'c / ' + fieldR + 'ro</b><span>fielding</span></div>' : '') +
+      '</div>' +
+      '<div class="tnote">' + esc(dates[0]) + ' to ' + esc(dates[dates.length - 1]) + '. Tap any other opponent name for their head-to-head.</div></div>';
+  }
+
   function formStrip(formRows, kind) {
     return '<div class="formstrip">' + formRows.map(function (f) {
       var cls = kind === 'batting' ? (f.value >= 30 ? 'good' : f.value < 10 ? 'bad' : '')
@@ -73,10 +135,10 @@
       '<h1>Your cricket career,<br><em>one link.</em></h1>' +
       '<p>Create a profile, log every innings, and share a live stats page - averages, strike rates, economy, form - all computed for you.</p></div>' +
       '<div class="home-cards">' + signed +
-      '<div class="card reveal d3"><h2>View a player</h2>' +
-      '<form id="lookup"><div class="frow one"><div><label class="fl">Username</label>' +
-      '<input class="fi" id="lk-name" required placeholder="sandy" pattern="[a-z0-9][a-z0-9-]{2,29}"></div></div>' +
-      '<button class="btn ghost" type="submit">Open profile</button><div id="lk-msg"></div></form></div></div>'
+      '<div class="card reveal d3"><h2>Find a player</h2>' +
+      '<form id="lookup"><div class="frow one"><div><label class="fl">Name or username</label>' +
+      '<input class="fi" id="lk-name" required minlength="2" placeholder="sandy"></div></div>' +
+      '<button class="btn ghost" type="submit">Search</button><div id="lk-msg"></div></form></div></div>'
     );
     var sf = document.getElementById('signin');
     if (sf) sf.onsubmit = function (e) {
@@ -91,10 +153,16 @@
     if (lk) lk.onsubmit = function (e) {
       e.preventDefault();
       var u = document.getElementById('lk-name').value.trim().toLowerCase();
-      db.getProfileByUsername(u).then(function (p) {
-        if (p) go('#/u/' + u);
-        else document.getElementById('lk-msg').innerHTML = '<div class="err">No profile named "' + esc(u) + '" yet.</div>';
-      });
+      var msg = document.getElementById('lk-msg');
+      db.searchProfiles(u).then(function (hits) {
+        if (hits.length === 1) { go('#/u/' + hits[0].username); return; }
+        if (!hits.length) { msg.innerHTML = '<div class="err">No players match "' + esc(u) + '" yet.</div>'; return; }
+        msg.innerHTML = '<div style="margin-top:12px">' + hits.map(function (p) {
+          return '<a class="inn" href="#/u/' + esc(p.username) + '" style="text-decoration:none;color:inherit">' +
+            '<div class="vs">' + esc(p.display_name) + '<small>@' + esc(p.username) + ' · ' + esc(p.role) + '</small></div>' +
+            '<div class="fig">→</div></a>';
+        }).join('') + '</div>';
+      }).catch(function (e2) { msg.innerHTML = fail(e2); });
     };
   }
 
@@ -115,10 +183,15 @@
 
         var hero =
           '<div class="hero reveal"><div class="hero-top">' +
-          '<div class="avatar">' + esc(initials(p.display_name)) + '</div>' +
+          (p.avatar_url
+            ? '<div class="avatar"><img src="' + esc(p.avatar_url) + '" alt="' + esc(p.display_name) + '" onerror="this.parentNode.textContent=\'' + esc(initials(p.display_name)) + '\'"></div>'
+            : '<div class="avatar">' + esc(initials(p.display_name)) + '</div>') +
           '<div><h1>' + esc(p.display_name) + '</h1><div class="uname">@' + esc(p.username) + '</div>' +
           '<div class="badges"><span class="badge hot">' + esc(p.role) + '</span>' +
-          '<span class="badge">' + esc(p.batting_style) + '</span><span class="badge">' + esc(p.bowling_style) + '</span></div></div></div>' +
+          '<span class="badge">' + esc(p.batting_style) + '</span><span class="badge">' + esc(p.bowling_style) + '</span>' +
+          (p.external_url ? '<a class="badge hot" href="' + esc(p.external_url) + '" target="_blank" rel="noopener">' +
+            (/cricheroes|chshare/i.test(p.external_url) ? 'CricHeroes' : esc((p.external_url.match(/^https?:\/\/([^\/]+)/i) || [,'link'])[1])) + ' ↗</a>' : '') +
+          '</div></div></div>' +
           '<div class="hero-stats">' +
           '<div class="hstat green"><b data-count="' + (cb.inns + kb.inns) + '">0</b><span>Innings</span></div>' +
           '<div class="hstat"><b data-count="' + cb.runs + '">0</b><span>Runs</span></div>' +
@@ -126,7 +199,7 @@
           '<div class="hstat blue"><b data-count="' + (cb.sr || 0) + '">0</b><span>Strike rate</span></div></div>' +
           '<div class="sharebar"><input class="fi" readonly value="' + esc(shareUrl) + '" id="share-url">' +
           '<button class="btn ghost" id="copy-link">Copy link</button>' +
-          (own ? '<a class="btn" href="#/edit">Edit</a>' : '') + '</div></div>';
+          (own ? '<a class="btn" href="#/edit">Edit</a>' : '') + '<a class="btn ghost" href="#/compare/' + esc(p.username) + '">Compare</a>' + '</div></div>';
 
         var tabs = '<div class="tabs reveal d1"><button class="tab on" data-t="bat">Batting</button><button class="tab" data-t="bowl">Bowling</button><button class="tab" data-t="all">All innings</button></div>';
         var body = '<div id="tab-body" class="reveal d2"></div>';
@@ -152,8 +225,9 @@
         function batTab() {
           var y = CricStats.yearly(bat, 'batting'), f = CricStats.form(bat, 'batting', 10);
           return careerTable() +
+            (bat.some(function (r) { return r.runs >= 50; }) ? '<div class="card"><h2>Records <em>shelf</em> - fifties</h2>' + recordsShelf(bat, 'batting') + '</div>' : '') +
             (y.length ? '<div class="card"><h2>Runs per <em>year</em></h2>' + barChart(y, 'runs') + '</div>' : '') +
-            (f.length ? '<div class="card"><h2>Recent <em>form</em></h2>' + formStrip(f, 'batting') + '</div>' : '') +
+            (bat.length ? '<div class="card"><h2>Form - last <em>' + Math.min(15, bat.length) + ' innings</em></h2>' + trendChart(bat, 'batting', 15) + '</div>' : '') +
             inningsList(bat, 'batting');
         }
         function bowlTab() {
@@ -162,8 +236,18 @@
             '<tr><th></th><th>Inns</th><th>Overs</th><th>Runs</th><th>Wkts</th><th>Best</th><th>Avg</th><th>SR</th><th>Econ</th></tr>' +
             '<tr><td>T20</td><td>' + kb.inns + '</td><td>' + kb.overs + '</td><td>' + kb.runs + '</td><td class="hl">' + kb.wickets + '</td><td>' + (kb.best ? kb.best.wickets + '/' + kb.best.runs : '-') + '</td><td>' + fmt(kb.avg) + '</td><td>' + fmt(kb.sr) + '</td><td>' + fmt(kb.econ) + '</td></tr>' +
             '</table></div></div>' +
+            (bowl.some(function (r) { return r.wickets >= 5; }) ? '<div class="card"><h2>Records <em>shelf</em> - five-fors</h2>' + recordsShelf(bowl, 'bowling') + '</div>' : '') +
             (y.length ? '<div class="card"><h2>Wickets per <em>year</em></h2>' + barChart(y, 'wickets', 'amber') + '</div>' : '') +
-            (f.length ? '<div class="card"><h2>Recent <em>form</em></h2>' + formStrip(f, 'bowling') + '</div>' : '') +
+            (function () {
+              var fr = bowl.filter(function (r) { return r.catches != null || r.run_outs != null; });
+              if (!fr.length) return '';
+              var c = fr.reduce(function (t, r) { return t + (r.catches || 0); }, 0);
+              var ro = fr.reduce(function (t, r) { return t + (r.run_outs || 0); }, 0);
+              return '<div class="card"><h2><em>Fielding</em></h2><div class="h2hgrid fielding">' +
+                '<div><b>' + c + '</b><span>catches</span></div><div><b>' + ro + '</b><span>run outs</span></div><div><b>' + fr.length + '</b><span>innings recorded</span></div></div>' +
+                '<div class="tnote">Fielding comes from the 2019-2021 scorebook era; CricHeroes imports do not record it.</div></div>';
+            })() +
+            (bowl.length ? '<div class="card"><h2>Form - last <em>' + Math.min(15, bowl.length) + ' innings</em></h2>' + trendChart(bowl, 'bowling', 15) + '</div>' : '') +
             inningsList(bowl, 'bowling');
         }
         function inningsList(rows2, kind) {
@@ -173,7 +257,7 @@
               : r.wickets + '/' + r.runs_given + ' <small>(' + CricStats.ballsToOvers(r.legal_balls) + 'ov)</small>';
             var sub = kind === 'batting' ? (r.dismissal || 'Not out') : 'econ ' + (r.legal_balls ? (r.runs_given * 6 / r.legal_balls).toFixed(2) : '-');
             return '<div class="inn"><div class="when">' + esc(r.played_on) + '</div>' +
-              '<div class="vs">' + esc(r.opponent || 'Friendly') + '<small>' + esc(sub) + '</small></div>' +
+              '<button class="vs tappable" data-opp="' + esc(r.opponent || '') + '" title="Head-to-head vs ' + esc(r.opponent || 'Friendly') + '">' + esc(r.opponent || 'Friendly') + '<small>' + esc(sub) + '</small></button>' +
               '<div class="fig ' + (kind === 'bowling' ? 'bowl' : '') + '">' + fig + '</div></div>';
           }).join('');
           return '<div class="card"><h2>' + (kind === 'batting' ? 'Batting' : 'Bowling') + ' <em>innings</em> (' + rows2.length + ')</h2>' +
@@ -186,7 +270,7 @@
               var fig = r.kind === 'batting' ? r.runs + (CricStats.isOut(r.dismissal) ? '' : '*') + ' (' + r.balls + 'b)'
                                              : r.wickets + '/' + r.runs_given + ' (' + CricStats.ballsToOvers(r.legal_balls) + 'ov)';
               return '<div class="inn"><div class="when">' + esc(r.played_on) + '</div>' +
-                '<div class="vs">' + esc(r.opponent || 'Friendly') + '<small>' + r.kind + '</small></div>' +
+                '<button class="vs tappable" data-opp="' + esc(r.opponent || '') + '" title="Head-to-head vs ' + esc(r.opponent || 'Friendly') + '">' + esc(r.opponent || 'Friendly') + '<small>' + r.kind + '</small></button>' +
                 '<div class="fig ' + (r.kind === 'bowling' ? 'bowl' : '') + '">' + fig + '</div></div>';
             }).join('') + '</div>';
         }
@@ -195,6 +279,15 @@
         function paint(t) {
           tb.innerHTML = t === 'bat' ? batTab() : t === 'bowl' ? bowlTab() : allTab();
         }
+        tb.addEventListener('click', function (e) {
+          var b = e.target.closest ? e.target.closest('.vs.tappable') : null;
+          if (!b) return;
+          var old = document.getElementById('h2h');
+          if (old) old.remove();
+          tb.insertAdjacentHTML('afterbegin', h2hCard(rows, b.dataset.opp || ''));
+          var h = document.getElementById('h2h');
+          if (h && h.scrollIntoView) h.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
         document.querySelectorAll('.tab').forEach(function (b) {
           b.onclick = function () {
             document.querySelectorAll('.tab').forEach(function (x) { x.classList.remove('on'); });
@@ -234,10 +327,14 @@
       '<div class="frow"><div><label class="fl">Username (your link)</label>' +
       (p ? '<input class="fi" value="' + esc(p.username) + '" disabled>' :
            '<input class="fi" id="pf-user" required placeholder="sandy" pattern="[a-z0-9][a-z0-9-]{2,29}" title="lowercase letters, numbers, dashes">') + '</div>' +
-      '<div><label class="fl">Display name</label><input class="fi" id="pf-name" required value="' + esc(p ? p.display_name : '') + '" placeholder="Sandy K"></div></div>' +
+      '<div><label class="fl">Display name</label><input class="fi" id="pf-name" required value="' + esc(p ? p.display_name : '') + '" placeholder="Sandy"></div></div>' +
       '<div class="frow"><div><label class="fl">Role</label>' + sel('pf-role', ROLES, p ? p.role : 'All-rounder') + '</div>' +
       '<div><label class="fl">Batting style</label>' + sel('pf-bat', BAT_STYLES, p ? p.batting_style : BAT_STYLES[0]) + '</div></div>' +
       '<div class="frow one"><div><label class="fl">Bowling style</label>' + sel('pf-bowl', BOWL_STYLES, p ? p.bowling_style : BOWL_STYLES[2]) + '</div></div>' +
+      '<div class="frow one"><div><label class="fl">External profile link (optional - e.g. CricHeroes)</label>' +
+      '<input class="fi" id="pf-ext" type="url" placeholder="https://..." value="' + esc(p && p.external_url || '') + '"></div></div>' +
+      '<div class="frow one"><div><label class="fl">Profile photo URL (optional)</label>' +
+      '<input class="fi" id="pf-avatar" type="text" placeholder="./sandy.jpg or https://..." value="' + esc(p && p.avatar_url || '') + '"></div></div>' +
       '<button class="btn" type="submit">' + (p ? 'Save profile' : 'Create profile') + '</button> ' +
       (p ? '<a class="btn ghost" href="#/u/' + esc(p.username) + '">View public page</a>' : '') +
       '<div id="pf-msg"></div></form></div>' +
@@ -245,11 +342,17 @@
     );
     document.getElementById('pf').onsubmit = function (e) {
       e.preventDefault();
+      var ext = document.getElementById('pf-ext').value.trim();
+      var av = document.getElementById('pf-avatar').value.trim();
+      var msg0 = document.getElementById('pf-msg');
+      if (ext && !/^https:\/\//i.test(ext)) { msg0.innerHTML = '<div class="err">External link must start with https://</div>'; return; }
       var fields = {
         display_name: document.getElementById('pf-name').value.trim(),
         role: document.getElementById('pf-role').value,
         batting_style: document.getElementById('pf-bat').value,
-        bowling_style: document.getElementById('pf-bowl').value
+        bowling_style: document.getElementById('pf-bowl').value,
+        external_url: ext || null,
+        avatar_url: av || null
       };
       var msg = document.getElementById('pf-msg');
       var done = function (saved) { msg.innerHTML = '<div class="notice green" style="margin-top:12px">Saved. <a href="#/u/' + esc(saved.username) + '">View your public page</a></div>'; if (!p) viewEdit(); };
@@ -264,7 +367,29 @@
   }
 
   function inningsManager(p, rows) {
-    return '<div class="card reveal d1"><h2>Log an <em>innings</em></h2>' +
+    return '<div class="card reveal d1"><h2>This weekend\'s <em>match</em> - quick add</h2>' +
+      '<form id="qa">' +
+      '<div class="frow"><div><label class="fl">Date</label><input class="fi" type="date" id="qa-date" required></div>' +
+      '<div><label class="fl">Opponent</label><input class="fi" id="qa-opp" placeholder="Wild Hogs"></div></div>' +
+      '<label class="chk"><input type="checkbox" id="qa-bat-on" checked> I batted</label>' +
+      '<div id="qa-bat-fields">' +
+      '<div class="frow"><div><label class="fl">Runs</label><input class="fi" type="number" min="0" id="qa-runs" value="0"></div>' +
+      '<div><label class="fl">Balls faced</label><input class="fi" type="number" min="0" id="qa-balls" value="0"></div></div>' +
+      '<div class="frow"><div><label class="fl">Fours</label><input class="fi" type="number" min="0" id="qa-fours" value="0"></div>' +
+      '<div><label class="fl">Sixes</label><input class="fi" type="number" min="0" id="qa-sixes" value="0"></div>' +
+      '<div><label class="fl">Dismissal</label>' + sel('qa-dismissal', DISMISSALS, '') + '</div></div></div>' +
+      '<label class="chk"><input type="checkbox" id="qa-bowl-on" checked> I bowled / fielded</label>' +
+      '<div id="qa-bowl-fields">' +
+      '<div class="frow"><div><label class="fl">Overs (4 or 4.2)</label><input class="fi" id="qa-overs" pattern="\\d+(\\.[0-5])?" value="0"></div>' +
+      '<div><label class="fl">Runs given</label><input class="fi" type="number" min="0" id="qa-rgiven" value="0"></div></div>' +
+      '<div class="frow"><div><label class="fl">Wickets</label><input class="fi" type="number" min="0" id="qa-wkts" value="0"></div>' +
+      '<div><label class="fl">Wides</label><input class="fi" type="number" min="0" id="qa-wides" value="0"></div>' +
+      '<div><label class="fl">No balls</label><input class="fi" type="number" min="0" id="qa-nb" value="0"></div></div>' +
+      '<div class="frow"><div><label class="fl">Catches</label><input class="fi" type="number" min="0" id="qa-cat" value="0"></div>' +
+      '<div><label class="fl">Run outs</label><input class="fi" type="number" min="0" id="qa-ro" value="0"></div></div></div>' +
+      '<button class="btn" type="submit">Add match</button>' +
+      '<div id="qa-msg"></div></form></div>' +
+      '<div class="card reveal d15"><h2>Log an <em>innings</em> (full form)</h2>' +
       '<div class="tabs" style="max-width:340px"><button class="tab on" data-k="batting" type="button">Batting</button><button class="tab" data-k="bowling" type="button">Bowling</button></div>' +
       '<form id="inf">' +
       '<input type="hidden" id="inf-id" value="">' +
@@ -299,6 +424,53 @@
   }
 
   function wireInnings(p, rows) {
+    // quick-add: one weekend match (bat + bowl + fielding) in a single submit
+    (function () {
+      var qaDate = document.getElementById('qa-date');
+      qaDate.value = new Date().toISOString().slice(0, 10);
+      function toggle(cbId, boxId) {
+        var cb = document.getElementById(cbId), box = document.getElementById(boxId);
+        cb.onchange = function () { box.style.display = cb.checked ? '' : 'none'; };
+      }
+      toggle('qa-bat-on', 'qa-bat-fields');
+      toggle('qa-bowl-on', 'qa-bowl-fields');
+      function qnum(id) { return parseInt(document.getElementById(id).value, 10) || 0; }
+      document.getElementById('qa').onsubmit = function (e) {
+        e.preventDefault();
+        var msg = document.getElementById('qa-msg');
+        var batOn = document.getElementById('qa-bat-on').checked, bowlOn = document.getElementById('qa-bowl-on').checked;
+        if (!batOn && !bowlOn) { msg.innerHTML = fail('Tick at least one of batting / bowling.'); return; }
+        var date = qaDate.value, opp = document.getElementById('qa-opp').value.trim();
+        var jobs = [];
+        if (batOn) jobs.push({ user_id: p.id, kind: 'batting', played_on: date, opponent: opp,
+          runs: qnum('qa-runs'), balls: qnum('qa-balls'), fours: qnum('qa-fours'), sixes: qnum('qa-sixes'),
+          dots: null, dismissal: document.getElementById('qa-dismissal').value,
+          legal_balls: null, runs_given: null, wickets: null, wides: null, no_balls: null, catches: null, run_outs: null });
+        var legal;
+        if (bowlOn) {
+          try { legal = CricStats.oversToBalls(document.getElementById('qa-overs').value.trim() || '0'); }
+          catch (e2) { msg.innerHTML = fail(e2); return; }
+          jobs.push({ user_id: p.id, kind: 'bowling', played_on: date, opponent: opp,
+            legal_balls: legal, runs_given: qnum('qa-rgiven'), wickets: qnum('qa-wkts'), wides: qnum('qa-wides'),
+            no_balls: qnum('qa-nb'), catches: qnum('qa-cat'), run_outs: qnum('qa-ro'),
+            runs: null, balls: null, fours: null, sixes: null, dots: null, dismissal: '' });
+        }
+        var added = [];
+        jobs.reduce(function (chain, row) {
+          return chain.then(function () { return db.addInning(row); }).then(function (saved) { rows.push(saved); added.push(saved); });
+        }, Promise.resolve()).then(function () {
+          paintList();
+          msg.innerHTML = '<div class="ok">Added ' + added.length + ' row' + (added.length > 1 ? 's' : '') + ' - match logged. 🏏</div>';
+          document.getElementById('qa').reset();
+          qaDate.value = date;
+          document.getElementById('qa-bat-on').checked = document.getElementById('qa-bowl-on').checked = true;
+          document.getElementById('qa-bat-fields').style.display = document.getElementById('qa-bowl-fields').style.display = '';
+          var h2 = document.querySelector('#my-inns');
+          if (h2 && h2.scrollIntoView) h2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }).catch(function (e2) { msg.innerHTML = fail(e2); });
+      };
+    })();
+
     var kindEl = document.getElementById('inf-kind');
     var kf = document.getElementById('kind-fields');
     kf.innerHTML = kindFields('batting');
@@ -396,9 +568,72 @@
   }
 
   /* ---------------- router ---------------- */
+  /* Player comparison: side-by-side career numbers for two profiles. */
+  function viewCompare(u1, u2) {
+    function form() {
+      return '<div class="card reveal"><h2>Compare <em>players</em></h2>' +
+        '<form id="cmp"><div class="frow"><div><label class="fl">Player 1</label><input class="fi" id="cmp-a" required placeholder="sandy" value="' + esc(u1 || '') + '"></div>' +
+        '<div><label class="fl">Player 2</label><input class="fi" id="cmp-b" required placeholder="sandeep" value="' + esc(u2 || '') + '"></div></div>' +
+        '<button class="btn" type="submit">Compare</button><div id="cmp-msg"></div></form></div>';
+    }
+    if (!u1 || !u2) { show(form()); wireCompareForm(); return; }
+    Promise.all([db.getProfileByUsername(u1), db.getProfileByUsername(u2)]).then(function (ps) {
+      var pa = ps[0], pb = ps[1];
+      if (!pa || !pb) {
+        show(form() + '<div class="card"><div class="empty">Could not find <b>' + esc(!pa ? u1 : u2) + '</b>. Check the username - demo mode ships <b>sandy</b> and <b>sandeep</b>.</div></div>');
+        wireCompareForm(); return;
+      }
+      Promise.all([db.listInnings(pa.id), db.listInnings(pb.id)]).then(function (rs) {
+        var ca = statsPair(rs[0]), cb2 = statsPair(rs[1]);
+        function statRow(label, va, vb, best) {
+          var na = parseFloat(va), nb = parseFloat(vb);
+          var wa = best === 'high' ? na > nb : na < nb;
+          var tie = isNaN(na) || isNaN(nb) || na === nb;
+          return '<tr><td>' + label + '</td><td class="' + (!tie && wa ? 'win' : '') + '">' + va + '</td><td class="' + (!tie && !wa ? 'win' : '') + '">' + vb + '</td></tr>';
+        }
+        function statsPair(rows) {
+          var bat = CricStats.careerBatting(rows.filter(function (r) { return r.kind === 'batting'; }));
+          var bowl = CricStats.careerBowling(rows.filter(function (r) { return r.kind === 'bowling'; }));
+          return { bat: bat, bowl: bowl };
+        }
+        show(form() +
+          '<div class="card reveal d1"><h2><em>' + esc(pa.display_name) + '</em> vs <em>' + esc(pb.display_name) + '</em></h2>' +
+          '<div class="tablewrap"><table class="stats cmp">' +
+          '<tr><th></th><th>' + esc(pa.display_name) + '<small>@' + esc(pa.username) + '</small></th><th>' + esc(pb.display_name) + '<small>@' + esc(pb.username) + '</small></th></tr>' +
+          '<tr><td colspan="3" class="sec">Batting</td></tr>' +
+          statRow('Innings', ca.bat.inns, cb2.bat.inns, 'high') +
+          statRow('Runs', ca.bat.runs, cb2.bat.runs, 'high') +
+          statRow('HS', ca.bat.hs, cb2.bat.hs, 'high') +
+          statRow('Average', fmt(ca.bat.avg), fmt(cb2.bat.avg), 'high') +
+          statRow('Strike rate', fmt(ca.bat.sr), fmt(cb2.bat.sr), 'high') +
+          statRow('50s', ca.bat.fifties, cb2.bat.fifties, 'high') +
+          '<tr><td colspan="3" class="sec">Bowling</td></tr>' +
+          statRow('Innings', ca.bowl.inns, cb2.bowl.inns, 'high') +
+          statRow('Wickets', ca.bowl.wickets, cb2.bowl.wickets, 'high') +
+          statRow('Best', ca.bowl.best ? ca.bowl.best.wickets + '/' + ca.bowl.best.runs : '-', cb2.bowl.best ? cb2.bowl.best.wickets + '/' + cb2.bowl.best.runs : '-', 'high') +
+          statRow('Average', fmt(ca.bowl.avg), fmt(cb2.bowl.avg), 'low') +
+          statRow('Economy', fmt(ca.bowl.econ), fmt(cb2.bowl.econ), 'low') +
+          '</table></div></div>');
+        wireCompareForm();
+      });
+    });
+    function wireCompareForm() {
+      var f = document.getElementById('cmp');
+      if (f) f.onsubmit = function (e) {
+        e.preventDefault();
+        var a2 = document.getElementById('cmp-a').value.trim().toLowerCase(), b2 = document.getElementById('cmp-b').value.trim().toLowerCase();
+        if (a2 && b2) go('#/compare/' + encodeURIComponent(a2) + '/' + encodeURIComponent(b2));
+      };
+    }
+  }
+
   function route() {
     var h = location.hash || '#/';
     if (h.indexOf('#/u/') === 0) viewProfile(decodeURIComponent(h.slice(4)));
+    else if (h.indexOf('#/compare') === 0) {
+      var parts = h.slice(9).split('/').filter(Boolean).map(decodeURIComponent);
+      viewCompare(parts[0], parts[1]);
+    }
     else if (h === '#/edit') viewEdit();
     else viewHome();
   }

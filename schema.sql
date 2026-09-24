@@ -9,8 +9,16 @@ create table if not exists public.profiles (
   role text not null default 'All-rounder',
   batting_style text not null default 'Right-hand bat',
   bowling_style text not null default 'Right-arm medium',
+  external_url text,          -- optional link to an external profile (e.g. CricHeroes)
+  avatar_url text,            -- optional profile photo URL ('./sandy.jpg' works when hosted flat)
   created_at timestamptz not null default now()
 );
+
+-- safe re-run for projects created before avatar_url existed
+alter table public.profiles add column if not exists avatar_url text;
+
+-- safe re-run for projects created before external_url existed
+alter table public.profiles add column if not exists external_url text;
 
 -- One row per innings. kind = 'batting' or 'bowling'; only that kind's columns are filled.
 -- legal_balls is a real ball count (4.2 overs = 26), so cricket overs never corrupt the math.
@@ -26,16 +34,22 @@ create table if not exists public.innings (
   -- bowling columns
   legal_balls integer, runs_given integer, wickets integer,
   wides integer, no_balls integer, catches integer, run_outs integer,
+  -- where this innings came from: 'manual' (entered in the app), 'pdf', 'cricheroes'
+  source text not null default 'manual',
   created_at timestamptz not null default now(),
+  -- dots (batting) and catches/run_outs (bowling) are nullable: CricHeroes
+  -- does not publish them per match, and forcing 0 would fabricate data.
   check (
     (kind = 'batting' and runs is not null and balls is not null
-       and fours is not null and sixes is not null and dots is not null)
+       and fours is not null and sixes is not null)
     or
     (kind = 'bowling' and legal_balls is not null and runs_given is not null
-       and wickets is not null and wides is not null and no_balls is not null
-       and catches is not null and run_outs is not null)
+       and wickets is not null and wides is not null and no_balls is not null)
   )
 );
+
+-- safe re-run for projects created before source existed
+alter table public.innings add column if not exists source text not null default 'manual';
 
 create index if not exists innings_user_kind_date_idx
   on public.innings (user_id, kind, played_on desc);

@@ -1,4 +1,4 @@
-/* Cricket Performance - dark sporty theme, mobile-first */
+/* SK 98 - dark sporty theme, mobile-first */
 :root {
   --bg: #070b14; --bg2: #0c1322; --card: rgba(19, 28, 48, .72);
   --line: rgba(120, 160, 255, .12); --line2: rgba(120, 160, 255, .22);
@@ -62,6 +62,8 @@ main#app { flex: 1; width: 100%; max-width: 860px; margin: 0 auto; padding: 20px
 }
 @keyframes glow { to { transform: translateX(-30%) rotate(8deg); } }
 .hero-top { display: flex; gap: 16px; align-items: center; position: relative; }
+.avatar { overflow: hidden; }
+.avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; display: block; }
 .avatar {
   width: 74px; height: 74px; border-radius: 20px; flex: none;
   display: grid; place-items: center; font-size: 26px; font-weight: 900; color: #06110b;
@@ -167,3 +169,39 @@ input.fi:focus, select.fi:focus { border-color: var(--green); box-shadow: 0 0 0 
 .err { color: var(--red); font-size: 13px; margin: 8px 0; }
 .sharebar { display: flex; gap: 8px; align-items: center; margin-top: 16px; position: relative; }
 .sharebar input { flex: 1; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
+
+/* form trend chart (per-innings bars) */
+.trend { display: flex; align-items: flex-end; gap: 5px; height: 150px; padding: 18px 2px 0; }
+.tcol { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 5px; min-width: 0; height: 100%; position: relative; }
+.tbar { width: 100%; max-width: 22px; border-radius: 5px 5px 2px 2px; background: linear-gradient(180deg, var(--green), #12a35c); box-shadow: 0 0 10px rgba(34,229,140,.2); min-height: 3px; position: relative; }
+.tbar.bowl { background: linear-gradient(180deg, var(--amber), #d98e04); box-shadow: 0 0 10px rgba(255,184,48,.2); }
+.tbar.peak { outline: 2px solid rgba(255,255,255,.65); outline-offset: 1px; }
+.tcol b { font: 700 10px 'JetBrains Mono', monospace; color: var(--dim); }
+.tcol span { font-size: 8.5px; color: var(--faint); white-space: nowrap; }
+.tbar.peak::after { content: 'PEAK'; position: absolute; top: -28px; left: 50%; transform: translateX(-50%); font: 800 8px 'Archivo'; letter-spacing: 1px; color: var(--green); text-shadow: 0 1px 4px #000; }
+.tbar.bowl.peak::after { color: var(--amber); }
+.fdot { position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%); min-width: 12px; height: 12px; line-height: 12px; border-radius: 7px; background: #78a0ff; color: #06110b; font: 800 8px/12px 'Archivo'; text-align: center; font-style: normal; box-shadow: 0 0 6px rgba(120,160,255,.7); }
+.tnote { margin-top: 10px; font-size: 11px; color: var(--faint); }
+
+/* records shelf */
+.shelf { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+.rec { flex: 0 0 auto; min-width: 108px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(7,11,20,.45); }
+.rec b { display: block; font: 800 17px 'JetBrains Mono', monospace; color: var(--green); }
+.rec span { display: block; font-size: 11.5px; font-weight: 600; margin-top: 2px; }
+.rec small { display: block; font-size: 10px; color: var(--faint); margin-top: 1px; }
+
+/* tappable opponent (head-to-head) */
+button.vs.tappable { background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: inherit; border-bottom: 1px dashed rgba(120,160,255,.35); }
+.h2h .h2hgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.h2h .h2hgrid div { border: 1px solid var(--line); border-radius: 10px; padding: 9px 10px; background: rgba(7,11,20,.45); }
+.h2h .h2hgrid b { font: 800 15px 'JetBrains Mono', monospace; color: var(--green); display: block; }
+.h2h .h2hgrid span { font-size: 10.5px; color: var(--faint); }
+
+/* comparison table */
+table.stats.cmp th small { display: block; font-size: 9px; color: var(--faint); text-transform: none; letter-spacing: 0; }
+table.stats.cmp td.sec { text-align: left; font-family: 'Archivo'; font-weight: 800; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--amber); background: rgba(7,11,20,.5); }
+table.stats.cmp td.win { color: var(--green); font-weight: 700; }
+
+/* quick-add checkboxes */
+.chk { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; padding: 8px 0; cursor: pointer; }
+.chk input { width: 17px; height: 17px; accent-color: var(--green); }

@@ -29,6 +29,14 @@
         return sb.from('profiles').select('*').eq('username', username).maybeSingle()
           .then(function (r) { if (r.error) throw r.error; return r.data; });
       },
+      searchProfiles: function (q) {
+        var safe = String(q).replace(/[%_(),"'.\\]/g, ' ').trim();
+        if (safe.length < 2) return Promise.resolve([]);
+        return sb.from('profiles').select('username,display_name,role,batting_style')
+          .or('username.ilike.%' + safe + '%,display_name.ilike.%' + safe + '%')
+          .limit(10)
+          .then(function (r) { if (r.error) throw r.error; return r.data; });
+      },
       getMyProfile: function (userId) {
         return sb.from('profiles').select('*').eq('id', userId).maybeSingle()
           .then(function (r) { if (r.error) throw r.error; return r.data; });
@@ -93,6 +101,13 @@
       getProfileByUsername: function (username) {
         var p = load().profiles.filter(function (p) { return p.username === username; })[0];
         return Promise.resolve(p || null);
+      },
+      searchProfiles: function (q) {
+        var n = String(q).trim().toLowerCase();
+        if (n.length < 2) return Promise.resolve([]);
+        return Promise.resolve(load().profiles.filter(function (p) {
+          return p.username.toLowerCase().indexOf(n) >= 0 || p.display_name.toLowerCase().indexOf(n) >= 0;
+        }).slice(0, 10));
       },
       getMyProfile: function (userId) {
         var p = load().profiles.filter(function (p) { return p.id === userId; })[0];
