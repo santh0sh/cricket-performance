@@ -8,6 +8,32 @@
              typeof cfg.SUPABASE_ANON_KEY === 'string' && cfg.SUPABASE_ANON_KEY.length > 20 &&
              cfg.SUPABASE_ANON_KEY.indexOf('PASTE_') !== 0;
 
+  /* Mobile + PIN login. Supabase has no free SMS, so the mobile number is the account id:
+     it maps to an internal address on the reserved .invalid domain (never emailed) and the
+     PIN is the password. Ownership rules in schema.sql still apply per account. */
+  function phoneDigits(p) {
+    var s = String(p || '').replace(/[^0-9]/g, '');
+    if (s.length === 11 && s[0] === '0') s = s.slice(1);
+    if (s.length === 10) s = '91' + s;
+    return s;
+  }
+  function phoneOk(p) { var s = phoneDigits(p); return s.length >= 11 && s.length <= 15; }
+  function phoneEmail(p) { return phoneDigits(p) + '@phone.invalid'; }
+  function pinPass(pin) { return 'sk98pin:' + String(pin); }
+  function labelOf(email) {
+    var m = /^([0-9]+)@phone\.invalid$/.exec(email || '');
+    if (!m) return email || '';
+    var s = m[1];
+    return s.indexOf('91') === 0 && s.length === 12 ? '+91 ' + s.slice(2, 7) + ' ' + s.slice(7) : '+' + s;
+  }
+  function asUser(u) { return u ? { id: u.id, email: u.email, label: labelOf(u.email) } : null; }
+  function authErr(e, isNew) {
+    var t = String(e && (e.message || e.code) || e);
+    if (/invalid login|invalid_credentials/i.test(t)) return new Error('Wrong mobile number or PIN. First time here? Tap "First time? Create my PIN".');
+    if (/already registered|already exists|user_already_exists/i.test(t)) return new Error('This number already has a PIN - use Sign in. Forgot it? Ask Sandy to reset it.');
+    return e instanceof Error ? e : new Error(t);
+  }
+
   /* ---------- Supabase backend ---------- */
   function supaBackend() {
     var sb = window.supabase.createClient(cfg.SUPABASE_URL, cfg.SUPABASE_ANON_KEY);
@@ -15,7 +41,7 @@
       mode: 'supabase',
       getSessionUser: function () {
         return sb.auth.getSession().then(function (r) {
-          return r.data.session ? { id: r.data.session.user.id, email: r.data.session.user.email } : null;
+          return r.data.session ? asUser(r.data.session.user) : null;
         });
       },
       signInWithEmail: function (email) {
@@ -24,7 +50,25 @@
           .then(function (r) { if (r.error) throw r.error; return { emailed: true }; });
       },
       signOut: function () { return sb.auth.signOut(); },
-      onAuthChange: function (cb) { sb.auth.onAuthStateChange(function (e, s) { cb(s ? { id: s.user.id, email: s.user.email } : null); }); },
+      onAuthChange: function (cb) { sb.auth.onAuthStateChange(function (e, s) { cb(s ? asUser(s.user) : null); }); },
+      phoneOk: phoneOk,
+      signInWithPin: function (phone, pin) {
+        return sb.auth.signInWithPassword({ email: phoneEmail(phone), password: pinPass(pin) })
+          .then(function (r) { if (r.error) throw authErr(r.error); return asUser(r.data.user); });
+      },
+      signUpWithPin: function (phone, pin) {
+        return sb.auth.signUp({ email: phoneEmail(phone), password: pinPass(pin) })
+          .then(function (r) {
+            if (r.error) throw authErr(r.error, true);
+            // an existing number comes back with no identities and no session
+            if (!r.data.session || (r.data.user && r.data.user.identities && r.data.user.identities.length === 0))
+              throw authErr(new Error('already registered'), true);
+            return asUser(r.data.user);
+          });
+      },
+      changePin: function (pin) {
+        return sb.auth.updateUser({ password: pinPass(pin) }).then(function (r) { if (r.error) throw r.error; });
+      },
       getProfileByUsername: function (username) {
         return sb.from('profiles').select('*').eq('username', username).maybeSingle()
           .then(function (r) { if (r.error) throw r.error; return r.data; });
@@ -98,6 +142,13 @@
       },
       signOut: function () { store.del(SES); return Promise.resolve(); },
       onAuthChange: function () {},
+      phoneOk: phoneOk,
+      signInWithPin: function (phone) {
+        var u = { id: 'demo-user-1', email: phoneEmail(phone), label: labelOf(phoneEmail(phone)) };
+        store.set(SES, JSON.stringify(u)); return Promise.resolve(u);
+      },
+      signUpWithPin: function (phone, pin) { return this.signInWithPin(phone, pin); },
+      changePin: function () { return Promise.resolve(); },
       getProfileByUsername: function (username) {
         var p = load().profiles.filter(function (p) { return p.username === username; })[0];
         return Promise.resolve(p || null);
@@ -147,3 +198,4 @@
 
   window.CricDB = LIVE ? Promise.resolve(supaBackend()) : mockBackend();
 })();
+
