@@ -246,7 +246,16 @@
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
         c.toBlob(function (b) { b ? resolve(b) : reject(new Error('Could not read that image.')); }, 'image/jpeg', 0.85);
       };
-      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error('Could not read that image. Try a JPG or PNG.')); };
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        if (!window.createImageBitmap) { reject(new Error('Could not read that image. Try a JPG or PNG.')); return; }
+        createImageBitmap(file).then(function (bm) {
+          var s = Math.min(1, max / Math.max(bm.width, bm.height));
+          var c = document.createElement('canvas'); c.width = Math.round(bm.width * s); c.height = Math.round(bm.height * s);
+          c.getContext('2d').drawImage(bm, 0, 0, c.width, c.height);
+          c.toBlob(function (b) { b ? resolve(b) : reject(new Error('Could not read that image.')); }, 'image/jpeg', 0.85);
+        }).catch(function () { reject(new Error('Could not read that image. Try a JPG or PNG.')); });
+      };
       img.src = url;
     });
   }
