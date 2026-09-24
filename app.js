@@ -153,7 +153,8 @@
       if (!db.phoneOk(phone)) { m.innerHTML = '<div class="err">Enter a valid mobile number (10 digits, or with country code).</div>'; return; }
       m.innerHTML = '';
       (isNew ? db.signUpWithPin(phone, pin) : db.signInWithPin(phone, pin)).then(function (u) {
-        session = u; renderNav(); go('#/edit'); route();
+        session = u; renderNav();
+        db.getMyProfile(u.id).then(function (p) { go(p && p.username ? '#/u/' + p.username : '#/edit'); }, function () { go('#/edit'); }).then(route);
       }).catch(function (e2) { m.innerHTML = fail(e2); });
     }
     if (sf) {
@@ -675,4 +676,5 @@
     });
   });
 })();
+
 
