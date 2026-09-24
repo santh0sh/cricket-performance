@@ -122,13 +122,17 @@
   /* ---------------- home ---------------- */
   function viewHome(msg) {
     var signed = session
-      ? '<div class="card reveal d2"><h2>Signed in as <em>' + esc(session.email) + '</em></h2>' +
+      ? '<div class="card reveal d2"><h2>Signed in as <em>' + esc(session.label || session.email) + '</em></h2>' +
         '<a class="btn" href="#/edit">Open my profile</a></div>'
       : '<div class="card reveal d2"><h2>Create your profile</h2>' + (msg ? '<div class="notice green">' + esc(msg) + '</div>' : '') +
         (db.mode === 'demo' ? '<div class="notice">Demo mode (no Supabase config yet) - data stays in this browser. Sign-in is instant, no email sent.</div>' : '') +
-        '<form id="signin"><div class="frow one"><div><label class="fl">Email</label>' +
-        '<input class="fi" type="email" id="si-email" required placeholder="you@example.com"></div></div>' +
-        '<button class="btn" type="submit">' + (db.mode === 'demo' ? 'Enter demo' : 'Email me a sign-in link') + '</button>' +
+        '<p style="margin:0 0 12px;opacity:.8">Sign in with your mobile number and PIN. Anyone with your link can view your stats - only you can edit them.</p>' +
+        '<form id="signin"><div class="frow"><div><label class="fl">Mobile number</label>' +
+        '<input class="fi" type="tel" id="si-phone" required inputmode="tel" autocomplete="tel" placeholder="98400 12345"></div>' +
+        '<div><label class="fl">PIN (4-6 digits)</label>' +
+        '<input class="fi" type="password" id="si-pin" required inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="current-password" placeholder="****"></div></div>' +
+        '<button class="btn" type="submit">Sign in</button> ' +
+        '<button class="btn ghost" type="button" id="si-new">First time? Create my PIN</button>' +
         '<div id="si-msg"></div></form></div>';
     show(
       '<div class="home-hero reveal">' +
@@ -141,14 +145,24 @@
       '<button class="btn ghost" type="submit">Search</button><div id="lk-msg"></div></form></div></div>'
     );
     var sf = document.getElementById('signin');
-    if (sf) sf.onsubmit = function (e) {
-      e.preventDefault();
-      var email = document.getElementById('si-email').value.trim();
-      db.signInWithEmail(email).then(function (r) {
-        if (r.demo) { session = { id: 'demo-user-1', email: email }; renderNav(); go('#/edit'); route(); }
-        else document.getElementById('si-msg').innerHTML = '<div class="notice green" style="margin-top:12px">Check your inbox - tap the link we sent to ' + esc(email) + '.</div>';
-      }).catch(function (e2) { document.getElementById('si-msg').innerHTML = fail(e2); });
-    };
+    function pinAuth(isNew) {
+      var phone = document.getElementById('si-phone').value.trim();
+      var pin = document.getElementById('si-pin').value.trim();
+      var m = document.getElementById('si-msg');
+      if (!/^[0-9]{4,6}$/.test(pin)) { m.innerHTML = '<div class="err">PIN must be 4-6 digits.</div>'; return; }
+      if (!db.phoneOk(phone)) { m.innerHTML = '<div class="err">Enter a valid mobile number (10 digits, or with country code).</div>'; return; }
+      m.innerHTML = '';
+      (isNew ? db.signUpWithPin(phone, pin) : db.signInWithPin(phone, pin)).then(function (u) {
+        session = u; renderNav(); go('#/edit'); route();
+      }).catch(function (e2) { m.innerHTML = fail(e2); });
+    }
+    if (sf) {
+      sf.onsubmit = function (e) { e.preventDefault(); pinAuth(false); };
+      document.getElementById('si-new').onclick = function () {
+        if (!sf.reportValidity()) return;
+        pinAuth(true);
+      };
+    }
     var lk = document.getElementById('lookup');
     if (lk) lk.onsubmit = function (e) {
       e.preventDefault();
@@ -338,8 +352,20 @@
       '<button class="btn" type="submit">' + (p ? 'Save profile' : 'Create profile') + '</button> ' +
       (p ? '<a class="btn ghost" href="#/u/' + esc(p.username) + '">View public page</a>' : '') +
       '<div id="pf-msg"></div></form></div>' +
+      (p && db.mode !== 'demo' ? '<div class="card reveal"><h2>Change <em>PIN</em></h2>' +
+        '<form id="cp"><div class="frow one"><div><label class="fl">New PIN (4-6 digits)</label>' +
+        '<input class="fi" type="password" id="cp-pin" required inputmode="numeric" pattern="[0-9]{4,6}" maxlength="6" autocomplete="new-password"></div></div>' +
+        '<button class="btn ghost" type="submit">Update PIN</button><div id="cp-msg"></div></form></div>' : '') +
       (p ? inningsManager(p, rows) : '')
     );
+    var cpf = document.getElementById('cp');
+    if (cpf) cpf.onsubmit = function (e) {
+      e.preventDefault();
+      var np = document.getElementById('cp-pin').value.trim(), cm = document.getElementById('cp-msg');
+      if (!/^[0-9]{4,6}$/.test(np)) { cm.innerHTML = '<div class="err">PIN must be 4-6 digits.</div>'; return; }
+      db.changePin(np).then(function () { document.getElementById('cp-pin').value = ''; cm.innerHTML = '<div class="notice green" style="margin-top:12px">PIN updated.</div>'; })
+        .catch(function (e2) { cm.innerHTML = fail(e2); });
+    };
     document.getElementById('pf').onsubmit = function (e) {
       e.preventDefault();
       var ext = document.getElementById('pf-ext').value.trim();
@@ -649,3 +675,4 @@
     });
   });
 })();
+
