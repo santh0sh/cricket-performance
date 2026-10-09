@@ -28,6 +28,7 @@
         if (p < 1) requestAnimationFrame(frame);
       }
       requestAnimationFrame(frame);
+      setTimeout(function () { el.textContent = (target % 1 ? target.toFixed(2) : Math.round(target)) + suffix; }, 1100);
     });
   }
 
@@ -111,7 +112,7 @@
   }
 
   function renderNav() {
-    var h = '<a href="#/">Home</a><a href="#/players">Players</a>';
+    var h = '<a href="#/">Home</a><a href="#/team">Wildhogs</a><a href="#/players">Players</a>';
     if (session) h += '<a href="#/edit">My profile</a><button class="cta" id="nav-out">Sign out</button>';
     else h += '<a class="cta" href="#/">Sign in</a>';
     nav.innerHTML = h;
@@ -323,7 +324,7 @@
           '<button class="btn ghost" id="copy-link">Copy link</button>' +
           (own ? '<a class="btn" href="#/edit">Edit</a>' : '') + '<a class="btn ghost" href="#/compare/' + esc(p.username) + '">Compare</a>' + '</div></div>';
 
-        var tabs = '<div class="tabs reveal d1"><button class="tab on" data-t="bat">Batting</button><button class="tab" data-t="bowl">Bowling</button><button class="tab" data-t="all">All innings</button></div>';
+        var tabs = '<div class="tabs reveal d1"><button class="tab on" data-t="ins">Insights</button><button class="tab" data-t="bat">Batting</button><button class="tab" data-t="bowl">Bowling</button><button class="tab" data-t="all">All innings</button></div>';
         var body = '<div id="tab-body" class="reveal d2"></div>';
         show(hero + tabs + body);
         countUps();
@@ -399,7 +400,7 @@
 
         var tb = document.getElementById('tab-body');
         function paint(t) {
-          tb.innerHTML = t === 'bat' ? batTab() : t === 'bowl' ? bowlTab() : allTab();
+          tb.innerHTML = t === 'ins' ? window.SK98X.insights(bat, bowl, cb, kb) : t === 'bat' ? batTab() : t === 'bowl' ? bowlTab() : allTab();
         }
         tb.addEventListener('click', function (e) {
           var b = e.target.closest ? e.target.closest('.vs.tappable') : null;
@@ -416,7 +417,7 @@
             b.classList.add('on'); paint(b.dataset.t);
           };
         });
-        paint('bat');
+        paint('ins');
       });
     }).catch(function (e) { show('<div class="card">' + fail(e) + '</div>'); });
   }
@@ -790,6 +791,7 @@
       var parts = h.slice(9).split('/').filter(Boolean).map(decodeURIComponent);
       viewCompare(parts[0], parts[1]);
     }
+    else if (h === '#/team') window.SK98X.team(db, show, esc);
     else if (h === '#/players') viewPlayers();
     else if (h === '#/edit') viewEdit();
     else viewHome();
@@ -806,5 +808,4 @@
     });
   });
 })();
-
 
