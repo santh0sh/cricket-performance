@@ -101,6 +101,17 @@
         }
         return page(0);
       },
+      allInnings: function () {
+        var all = [];
+        function page(from) {
+          return sb.from('innings').select('user_id,kind,played_on,opponent,runs,balls,fours,sixes,dismissal,legal_balls,runs_given,wickets').order('id').range(from, from + 999).then(function (r) {
+            if (r.error) throw r.error;
+            all = all.concat(r.data);
+            return r.data.length === 1000 ? page(from + 1000) : all;
+          });
+        }
+        return page(0);
+      },
       getMyProfile: function (userId) {
         return sb.from('profiles').select('*').eq('id', userId).maybeSingle()
           .then(function (r) { if (r.error) throw r.error; return r.data; });
@@ -187,6 +198,7 @@
         return Promise.resolve(load().profiles.slice().sort(function (a, b) { return a.display_name.localeCompare(b.display_name); }));
       },
       teamTotals: function () { return Promise.resolve(load().innings.slice()); },
+      allInnings: function () { return Promise.resolve(load().innings.slice()); },
       getMyProfile: function (userId) {
         var p = load().profiles.filter(function (p) { return p.id === userId; })[0];
         return Promise.resolve(p || null);
@@ -225,5 +237,4 @@
 
   window.CricDB = LIVE ? Promise.resolve(supaBackend()) : mockBackend();
 })();
-
 
