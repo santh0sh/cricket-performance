@@ -37,7 +37,7 @@
     return '<div class="chart">' + rows.map(function (r, i) {
       var h = Math.max(4, Math.round(r[key] / max * 88));
       return '<div class="bar ' + (cls || '') + '"><b>' + r[key] + '</b>' +
-        '<i style="height:' + h + '%;animation-delay:' + (i * 60) + 'ms"></i><span>' + esc(r.year) + '</span></div>';
+        '<i style="height:' + h + 'px;flex-shrink:0;animation-delay:' + (i * 60) + 'ms"></i><span>' + esc(r.year) + '</span></div>';
     }).join('') + '</div>';
   }
 
