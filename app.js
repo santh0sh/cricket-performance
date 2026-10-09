@@ -310,6 +310,7 @@
             ? '<div class="avatar"><img src="' + esc(p.avatar_url) + '" alt="' + esc(p.display_name) + '" onerror="this.parentNode.textContent=\'' + esc(initials(p.display_name)) + '\'"></div>'
             : '<div class="avatar">' + esc(initials(p.display_name)) + '</div>') +
           '<div><h1>' + esc(p.display_name) + '</h1><div class="uname">@' + esc(p.username) + '</div>' +
+          (p.unclaimed ? '<p class="tnote">Wildhogs match data from 9 Apr to 9 Oct 2026. Not a full career record.</p>' : '') +
           '<div class="badges"><span class="badge hot">' + esc(p.role) + '</span>' +
           '<span class="badge">' + esc(p.batting_style) + '</span><span class="badge">' + esc(p.bowling_style) + '</span>' +
           (p.external_url ? '<a class="badge hot" href="' + esc(p.external_url) + '" target="_blank" rel="noopener">' +
@@ -808,4 +809,3 @@
     });
   });
 })();
-
