@@ -326,9 +326,17 @@
           (own ? '<a class="btn" href="#/edit">Edit</a>' : '') + '<a class="btn ghost" href="#/compare/' + esc(p.username) + '">Compare</a>' + '</div></div>';
 
         var tabs = '<div class="tabs reveal d1"><button class="tab on" data-t="ins">Insights</button><button class="tab" data-t="bat">Batting</button><button class="tab" data-t="bowl">Bowling</button><button class="tab" data-t="all">All innings</button></div>';
-        var body = '<div id="tab-body" class="reveal d2"></div>';
+        var body = '<div id="source-career"></div><div id="tab-body" class="reveal d2"></div>';
         show(hero + tabs + body);
         countUps();
+        fetch('career-snapshot.json').then(function (r) { if (!r.ok) throw Error('Snapshot unavailable'); return r.json(); }).then(function (d) {
+          var stats = d.players[p.username], host = document.getElementById('source-career');
+          if (!stats || !host || location.hash !== sharePath) return;
+          host.innerHTML = '<div class="card"><h2>CricHeroes <em>career snapshot</em></h2><p class="tnote">All available career totals reported by CricHeroes on ' + esc(d.fetched_on) + '. Includes matches beyond Wildhogs. Charts below use imported innings only; full match history is not imported yet.</p>' + ['batting','bowling','fielding'].map(function (kind) {
+            var vals = stats[kind] || [];
+            return vals.length ? '<h3 style="margin:18px 0 8px;text-transform:capitalize">' + kind + '</h3><div class="tablewrap"><table class="stats"><tr>' + vals.map(function (v) { return '<th>' + esc(v.title) + '</th>'; }).join('') + '</tr><tr>' + vals.map(function (v) { return '<td>' + esc(v.value) + '</td>'; }).join('') + '</tr></table></div>' : '';
+          }).join('') + '</div>';
+        }).catch(function () {});
         document.getElementById('copy-link').onclick = function () {
           var i = document.getElementById('share-url');
           i.select(); (navigator.clipboard ? navigator.clipboard.writeText(i.value) : Promise.reject()).catch(function () { document.execCommand && document.execCommand('copy'); });
@@ -336,13 +344,13 @@
         }.bind(document.getElementById('copy-link'));
 
         function careerTable() {
-          return '<div class="card"><h2>Career <em>batting</em></h2><div class="tablewrap"><table class="stats">' +
+          return '<div class="card"><h2>Imported innings <em>batting</em></h2><div class="tablewrap"><table class="stats">' +
             '<tr><th></th><th>Inns</th><th>Runs</th><th>HS</th><th>Avg</th><th>SR</th><th>4s</th><th>6s</th><th>50s</th><th>100s</th><th>NO</th></tr>' +
-            '<tr><td>T20</td><td>' + cb.inns + '</td><td class="hl">' + cb.runs + '</td><td>' + cb.hs + '</td><td>' + fmt(cb.avg) + '</td><td>' + fmt(cb.sr) + '</td><td>' + cb.fours + '</td><td>' + cb.sixes + '</td><td>' + cb.fifties + '</td><td>' + cb.hundreds + '</td><td>' + cb.notOuts + '</td></tr>' +
+            '<tr><td>All imported</td><td>' + cb.inns + '</td><td class="hl">' + cb.runs + '</td><td>' + cb.hs + '</td><td>' + fmt(cb.avg) + '</td><td>' + fmt(cb.sr) + '</td><td>' + cb.fours + '</td><td>' + cb.sixes + '</td><td>' + cb.fifties + '</td><td>' + cb.hundreds + '</td><td>' + cb.notOuts + '</td></tr>' +
             '</table></div></div>' +
-            '<div class="card"><h2>Career <em>bowling</em></h2><div class="tablewrap"><table class="stats">' +
+            '<div class="card"><h2>Imported innings <em>bowling</em></h2><div class="tablewrap"><table class="stats">' +
             '<tr><th></th><th>Inns</th><th>Overs</th><th>Runs</th><th>Wkts</th><th>Best</th><th>Avg</th><th>SR</th><th>Econ</th></tr>' +
-            '<tr><td>T20</td><td>' + kb.inns + '</td><td>' + kb.overs + '</td><td>' + kb.runs + '</td><td class="hl">' + kb.wickets + '</td><td>' + (kb.best ? kb.best.wickets + '/' + kb.best.runs : '-') + '</td><td>' + fmt(kb.avg) + '</td><td>' + fmt(kb.sr) + '</td><td>' + fmt(kb.econ) + '</td></tr>' +
+            '<tr><td>All imported</td><td>' + kb.inns + '</td><td>' + kb.overs + '</td><td>' + kb.runs + '</td><td class="hl">' + kb.wickets + '</td><td>' + (kb.best ? kb.best.wickets + '/' + kb.best.runs : '-') + '</td><td>' + fmt(kb.avg) + '</td><td>' + fmt(kb.sr) + '</td><td>' + fmt(kb.econ) + '</td></tr>' +
             '</table></div></div>';
         }
 
@@ -356,9 +364,9 @@
         }
         function bowlTab() {
           var y = CricStats.yearly(bowl, 'bowling'), f = CricStats.form(bowl, 'bowling', 10);
-          return '<div class="card"><h2>Career <em>bowling</em></h2><div class="tablewrap"><table class="stats">' +
+          return '<div class="card"><h2>Imported innings <em>bowling</em></h2><div class="tablewrap"><table class="stats">' +
             '<tr><th></th><th>Inns</th><th>Overs</th><th>Runs</th><th>Wkts</th><th>Best</th><th>Avg</th><th>SR</th><th>Econ</th></tr>' +
-            '<tr><td>T20</td><td>' + kb.inns + '</td><td>' + kb.overs + '</td><td>' + kb.runs + '</td><td class="hl">' + kb.wickets + '</td><td>' + (kb.best ? kb.best.wickets + '/' + kb.best.runs : '-') + '</td><td>' + fmt(kb.avg) + '</td><td>' + fmt(kb.sr) + '</td><td>' + fmt(kb.econ) + '</td></tr>' +
+            '<tr><td>All imported</td><td>' + kb.inns + '</td><td>' + kb.overs + '</td><td>' + kb.runs + '</td><td class="hl">' + kb.wickets + '</td><td>' + (kb.best ? kb.best.wickets + '/' + kb.best.runs : '-') + '</td><td>' + fmt(kb.avg) + '</td><td>' + fmt(kb.sr) + '</td><td>' + fmt(kb.econ) + '</td></tr>' +
             '</table></div></div>' +
             (bowl.some(function (r) { return r.wickets >= 5; }) ? '<div class="card"><h2>Records <em>shelf</em> - five-fors</h2>' + recordsShelf(bowl, 'bowling') + '</div>' : '') +
             (y.length ? '<div class="card"><h2>Wickets per <em>year</em></h2>' + barChart(y, 'wickets', 'amber') + '</div>' : '') +
