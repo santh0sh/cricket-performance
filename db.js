@@ -91,26 +91,28 @@
           .then(function (r) { if (r.error) throw r.error; return r.data; });
       },
       teamTotals: function () {
-        var all = [];
-        function page(from) {
-          return sb.from('innings').select('user_id,kind,runs,wickets').order('id').range(from, from + 999).then(function (r) {
-            if (r.error) throw r.error;
-            all = all.concat(r.data);
-            return r.data.length === 1000 ? page(from + 1000) : all;
-          });
-        }
-        return page(0);
+        /* Per-player totals come from the innings_totals view (one small row per player and kind),
+           so this page no longer downloads every innings row. */
+        return sb.from('innings_totals').select('user_id,kind,runs,wickets').then(function (r) {
+          if (r.error) throw r.error;
+          return r.data;
+        });
       },
       allInnings: function () {
-        var all = [];
+        var cols = 'user_id,kind,played_on,opponent,runs,balls,fours,sixes,dismissal,legal_balls,runs_given,wickets';
         function page(from) {
-          return sb.from('innings').select('user_id,kind,played_on,opponent,runs,balls,fours,sixes,dismissal,legal_balls,runs_given,wickets').order('id').range(from, from + 999).then(function (r) {
+          return sb.from('innings').select(cols).order('id').range(from, from + 999).then(function (r) {
             if (r.error) throw r.error;
-            all = all.concat(r.data);
-            return r.data.length === 1000 ? page(from + 1000) : all;
+            return r.data;
           });
         }
-        return page(0);
+        /* Count first, then fetch all 1,000-row pages in parallel instead of one after another. */
+        return sb.from('innings').select('id', { count: 'exact', head: true }).then(function (c) {
+          if (c.error) throw c.error;
+          var pages = [];
+          for (var from = 0; from < c.count; from += 1000) pages.push(page(from));
+          return Promise.all(pages).then(function (parts) { return [].concat.apply([], parts); });
+        });
       },
       getMyProfile: function (userId) {
         return sb.from('profiles').select('*').eq('id', userId).maybeSingle()
@@ -237,4 +239,3 @@
 
   window.CricDB = LIVE ? Promise.resolve(supaBackend()) : mockBackend();
 })();
-
