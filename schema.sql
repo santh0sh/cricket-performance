@@ -78,3 +78,9 @@ create policy "owner updates own innings"
   on public.innings for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create policy "owner deletes own innings"
   on public.innings for delete using (auth.uid() = user_id);
+
+-- Per-player totals for the players list. Keeps that page from downloading every innings row.
+create or replace view public.innings_totals with (security_invoker = true) as
+select user_id, kind, coalesce(sum(runs),0)::int as runs, coalesce(sum(wickets),0)::int as wickets, count(*)::int as n
+from public.innings group by user_id, kind;
+grant select on public.innings_totals to anon, authenticated;
