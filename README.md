@@ -68,3 +68,11 @@ The seed reproduces the career summary in the source PDF exactly, with two known
 - The bowling summary line says 62 innings, but the table lists 61 rows. The table is what got imported.
 - The bowling summary "Best" still says 5/22, but the 7 Mar 2020 row is 6/18 - so the app shows 6/18 as his best.
 - The 26 Jan 2021 bowling row has a blank date cell in the sheet; the date is restored from his earlier sheet.
+
+## Sunday auto-refresh (Wildhogs)
+
+Every Sunday afternoon the app checks CricHeroes for the Wildhogs match played that morning and adds it for everyone who played.
+
+Real example, the 4 Oct 2026 match against Madras White Walkers: the refresh reads the public scorecard, sees Sandy bowled 5 overs for 31 runs and took 4 wickets, and adds one bowling row to his profile. It adds a batting row for each Wildhogs batter too. Rows that are already in the app are skipped, so running it twice never doubles anything (that dry run gave 16 skipped, 0 added).
+
+How it runs: a small Supabase Edge Function (`supabase/functions/wildhogs-refresh/index.ts`) is called by a Postgres schedule at 3:30 PM and again at 6:30 PM IST on Sundays. It only reads public pages, waits 3 seconds between requests, and stops without writing if anything looks wrong (two matches the same day, changed figures, an unknown player). The access token lives only in Supabase secrets, never in this repo.
