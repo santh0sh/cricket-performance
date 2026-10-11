@@ -33,7 +33,10 @@ Deno.serve(async req=>{
   for(const [pid,username] of Object.entries(LEGACY)){const p=profiles!.find(p=>p.username===username);if(p)map.set(+pid,p.id);}
   const rows:any[]=[];
   for(const [t,kind] of [[ours,'batting'],[opp,'bowling']] as const)for(const inn of t.scorecard)for(const r of inn[kind]||[]){
-   const uid=map.get(r.player_id);if(!uid)throw Error(`Unknown player ${r.player_id}; no profiles created automatically`);
+   let uid=map.get(r.player_id);if(!uid){const nm=String(r.name||'').replace(/\([^)]*\)/g,'').replace(/\s+/g,' ').trim();if(!nm||!/^\d+$/.test(String(r.player_id)))throw Error(`Unknown player ${r.player_id}; cannot create profile`);
+    const base=nm.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||('player-'+r.player_id);let un=base,n=0;while(profiles!.some(p=>p.username===un)){n++;un=base+'-'+n;}
+    if(body.dry_run){uid='dry-'+r.player_id;}else{const ins=await sb.from('profiles').insert({username:un,display_name:nm+(n?' '+n:''),role:'Not specified',batting_style:'Not specified',bowling_style:'Not specified',external_url:`https://cricheroes.com/player-profile/${r.player_id}/${base}/matches`,cricheroes_player_id:r.player_id,unclaimed:true}).select('id,username,cricheroes_player_id').single();if(ins.error)throw ins.error;uid=ins.data.id;profiles!.push(ins.data as any);}
+    map.set(r.player_id,uid);}
    const row:any={user_id:uid,kind,played_on:day,opponent:opp.name,source:'cricheroes',external_match_id:mid,external_player_id:r.player_id,external_inning:inn.inning};
    if(kind==='batting'){if(!['runs','balls','4s','6s'].every(k=>Number.isInteger(r[k])&&r[k]>=0))throw Error('Incomplete batting figures');Object.assign(row,{runs:r.runs,balls:r.balls,fours:r['4s'],sixes:r['6s'],source_dismissal:r.how_to_out,dismissal:['not out','retired hurt'].includes(r.how_to_out.toLowerCase())?'':r.how_to_out});}
    else {if(!['runs','wickets','wide','noball'].every(k=>Number.isInteger(r[k])&&r[k]>=0))throw Error('Incomplete bowling figures');Object.assign(row,{legal_balls:legal(r.overs),runs_given:r.runs,wickets:r.wickets,wides:r.wide,no_balls:r.noball,dismissal:''});}
