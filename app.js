@@ -310,7 +310,7 @@
             ? '<div class="avatar"><img src="' + esc(p.avatar_url) + '" alt="' + esc(p.display_name) + '" onerror="this.parentNode.textContent=\'' + esc(initials(p.display_name)) + '\'"></div>'
             : '<div class="avatar">' + esc(initials(p.display_name)) + '</div>') +
           '<div><h1>' + esc(p.display_name) + '</h1><div class="uname">@' + esc(p.username) + '</div>' +
-          (p.unclaimed ? '<p class="tnote">Wildhogs match data from 9 Apr to 9 Oct 2026. Not a full career record.</p>' : '') +
+          (p.unclaimed ? '<p class="tnote">Wildhogs match history on CricHeroes from Jun 2021. Matches for other teams appear only in the career totals.</p>' : '') +
           '<div class="badges"><span class="badge hot">' + esc(p.role) + '</span>' +
           '<span class="badge">' + esc(p.batting_style) + '</span><span class="badge">' + esc(p.bowling_style) + '</span>' +
           (p.external_url ? '<a class="badge hot" href="' + esc(p.external_url) + '" target="_blank" rel="noopener">' +
@@ -332,7 +332,7 @@
         fetch('career-snapshot.json').then(function (r) { if (!r.ok) throw Error('Snapshot unavailable'); return r.json(); }).then(function (d) {
           var stats = d.players[p.username], host = document.getElementById('source-career');
           if (!stats || !host || location.hash !== sharePath) return;
-          host.innerHTML = '<div class="card"><h2>CricHeroes <em>career snapshot</em></h2><p class="tnote">All available career totals reported by CricHeroes on ' + esc(d.fetched_on) + '. Includes matches beyond Wildhogs. Charts below use imported innings only; full match history is not imported yet.</p>' + ['batting','bowling','fielding'].map(function (kind) {
+          host.innerHTML = '<div class="card"><h2>CricHeroes <em>career snapshot</em></h2><p class="tnote">All available career totals reported by CricHeroes on ' + esc(d.fetched_on) + '. Includes matches beyond Wildhogs. Charts below use all imported Wildhogs matches (Jun 2021 onward); matches for other teams are only in these totals.</p>' + ['batting','bowling','fielding'].map(function (kind) {
             var vals = stats[kind] || [];
             return vals.length ? '<h3 style="margin:18px 0 8px;text-transform:capitalize">' + kind + '</h3><div class="tablewrap"><table class="stats"><tr>' + vals.map(function (v) { return '<th>' + esc(v.title) + '</th>'; }).join('') + '</tr><tr>' + vals.map(function (v) { return '<td>' + esc(v.value) + '</td>'; }).join('') + '</tr></table></div>' : '';
           }).join('') + '</div>';
